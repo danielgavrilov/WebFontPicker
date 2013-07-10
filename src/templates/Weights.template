@@ -1,0 +1,4 @@
+<% _.forEach(obj.weights, function(weight) { %><!--
+--><label><input data-weight="<%= weight %>" class="change-weight" type="radio" name="weight"><!--
+--><label data-weight="<%= weight %>" class="preview-weight"><%= weight %></label></label><!--
+--><% }); %>

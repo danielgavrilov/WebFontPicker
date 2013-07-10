@@ -1,0 +1,54 @@
+<div class="style">
+    <div class="selector-wrapper">
+        <label>
+            <input type="checkbox" class="toggle-active" <% if (obj.active) { %> checked <% } %>>
+            <label class="toggle"></label>
+        </label>
+        <input type="text" class="selector" placeholder="CSS selector" value="<%= obj.selector %>">
+    </div>
+    <div class="font-menu">
+        <div class="search-wrapper">
+            <input type="search" class="search" placeholder="Search for a family">
+        </div>
+        <div class="font none<% if (obj.family === '') { %> current<% } %>" data-font-family="">
+            <div class="arrow"></div>
+            <span>Select a font</span>
+        </div>
+        <div class="font-list">
+            <button class="load-more">Load more</button>
+        </div>
+        <div class="nothing">
+            <p>No fonts found.</p>
+        </div>
+    </div>
+    <div class="weight">
+        <label>
+            <input type="checkbox" class="toggle-weight"<% if (obj.enabled.weight) { %> checked <% } %>>
+            <label class="section-label">Weight</label>
+        </label>
+        <span class="select-weight"></span>
+    </div>
+    <div class="combo clearfix">
+        <div class="color">
+            <label>
+                <input type="checkbox" class="toggle-color"<% if (obj.enabled.color) { %> checked <% } %>>
+                <label>Color</label>
+            </label>
+            <input type="color" class="editable change-color" spellcheck="false" maxlength="7" value="#5bbf45">
+        </div>
+        <div class="font-size">
+            <label>
+                <input type="checkbox" class="toggle-font-size"<% if (obj.enabled.fontSize) { %> checked <% } %>>
+                <label>Font size</label>
+            </label>
+            <input type="range" min="12" max="84" step="1" class="editable change-font-size" spellcheck="false" value="16">
+        </div>
+        <div class="line-height">
+            <label>
+                <input type="checkbox" id="line-height" class="toggle-line-height"<% if (obj.enabled.lineHeight) { %> checked <% } %>>
+                <label>Line height</label>
+            </label>
+            <input type="range" min="0.1" max="2.5" step="0.1" class="editable change-line-height" spellcheck="false" value="1.5">
+        </div>
+    </div>
+</div>

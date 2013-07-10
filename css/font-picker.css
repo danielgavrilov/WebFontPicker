@@ -1,0 +1,408 @@
+/* ===========================================
+   FONT PICKER
+ */
+#font-picker {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: normal !important;
+  color: #8e8e8e !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  text-shadow: none !important;
+  background: #e6e6e6;
+  position: fixed;
+  top: 10px;
+  right: -1px;
+  border-radius: 8px 0 0 8px;
+  width: 350px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5), 0 1px 5px rgba(0, 0, 0, 0.15);
+  z-index: 99999;
+  cursor: default;
+  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.3, 0.1, 0, 1);
+  -moz-transition: -moz-transform 300ms cubic-bezier(0.3, 0.1, 0, 1);
+  transition: transform 300ms cubic-bezier(0.3, 0.1, 0, 1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  #font-picker * {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+    color: #8e8e8e;
+    text-align: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  #font-picker ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; }
+  #font-picker ::-webkit-scrollbar-track {
+    background-color: #ddd;
+    border-radius: 4px; }
+  #font-picker ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px; }
+  #font-picker ::-webkit-input-placeholder {
+    color: #999;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear; }
+  #font-picker :focus::-webkit-input-placeholder {
+    color: #ccc; }
+  #font-picker :-moz-placeholder {
+    color: #999;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear; }
+  #font-picker :focus:-moz-placeholder {
+    color: #ccc; }
+  #font-picker :-ms-input-placeholder {
+    color: #999; }
+  #font-picker label {
+    font-size: inherit;
+    float: none;
+    width: auto;
+    padding: 0; }
+  #font-picker input {
+    margin: 0;
+    box-shadow: none;
+    color: inherit; }
+  #font-picker .clearfix:before,
+  #font-picker .clearfix:after {
+    content: " ";
+    display: table; }
+  #font-picker .clearfix:after {
+    clear: both; }
+  #font-picker .clearfix {
+    *zoom: 1; }
+
+/* ===========================================
+   Header
+ */
+#font-picker-header {
+  background: #4285f4;
+  border-radius: 7px 0 0 0;
+  border-bottom: 1px solid #2d64be;
+  position: relative;
+  z-index: 1; }
+  #font-picker-header .font-picker-heading {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    display: block;
+    margin: 0;
+    padding: 4px 9px; }
+  #font-picker-header .add-style {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAClJREFUeNpi/P//PwMaQBZgRJZgYiAB0E4xC5ob8bmfxs5gHGJBBxBgAKgnBxbaJpzyAAAAAElFTkSuQmCC);
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    float: right;
+    border: none;
+    margin: 4px 5px 0 0;
+    width: 28px;
+    height: 22px;
+    border-radius: 3px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+    opacity: .6;
+    outline: none; }
+    #font-picker-header .add-style:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      opacity: 1; }
+    #font-picker-header .add-style:active {
+      background-color: rgba(0, 0, 0, 0.15);
+      opacity: 1; }
+
+/* ===========================================
+   Selector list
+ */
+#font-picker-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0 10px;
+  position: relative;
+  /* ===========================================
+     Font menu
+  */
+  /* ===========================================
+     Weight
+  */
+  /* ===========================================
+     Color, Font size and Line height
+  */ }
+  #font-picker-list .style {
+    display: block;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
+  #font-picker-list .style > * {
+    display: none; }
+  #font-picker-list .style > .selector-wrapper,
+  #font-picker-list .selected > * {
+    display: block; }
+  #font-picker-list .selector-wrapper {
+    position: relative; }
+    #font-picker-list .selector-wrapper input[type=checkbox] {
+      display: none; }
+    #font-picker-list .selector-wrapper .toggle {
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAPCAYAAAD+pA/bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAcZJREFUeNqM1L0vQ1EYBvB7fSb8AVKf8RlETGKo1IKaJE0MaEmoP4AwYGARBvGRMAphqI+pC000lWDQxNSBDk2JRENj14GkPK88TY6b26s3+SW3p+95Ts/pOUcPBAKaxVMIfTAEXWBj+xvcwikE4StbQJ5Fuxee4RzGIAUhuGHgKJyxxpsty6yxFsKwB/kwB9XQDiMwCC1sk+8KWBtmX8sBBiACHbAJdbAGdniAD5J3B7+Tmi32iTDDdIAJ8HP6TpjlssxzrVuVWnk/ggUOOAP97Otn1p8BPLALCf7aSyVoxWITLEMb30Psm2CWJzNAN+xDEnohpgS4LTaCxv9oWPkcY0aSmQ7pvA1FnGbcEFCl/f8Ya+LMkswdGWAKPmEDGgzFLzkMYKypZ5ZkTssA19zHNq5jk1J8AmmL8DRrMk8jM2zMvMqsrw8moYIntIft97BoMcASazT2kb6VzPIZt+khuHg9BDnNUljlVRFVaqPcJSuskdoLrruLWb+PbnIXycE5hk54h3V+lu1XwpoUZ+vmeSmDO570JzVMz3LZyczGuc/L4Zun9xGKoQaapT+8chkPzP4vPYfb1MklsnMwjaE53aY/AgwAY29wGBoWby4AAAAASUVORK5CYII=);
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 40px;
+      height: 39px;
+      display: block;
+      position: absolute;
+      top: 50%;
+      margin: -20px 0 0 2px;
+      cursor: pointer; }
+    #font-picker-list .selector-wrapper input[type=checkbox]:checked ~ .toggle {
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAPCAYAAAD+pA/bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAcVJREFUeNqM1EtLAlEYBuCxzKB+gVHRTaiMQGhl2KKLrYKgRRcLSn9AkUi1qE3YIrpALaPIRVErN7WoDKqFrgIX5UIkgqT8AdWiwHo/eI1xmJkceGAcv/N+M2fOHGtv+F0xOSpgAEahG+y8/gZxOIVL+DYKKDO57odnOIcp+IQY3DFwEs5Y4zfK0rvYCAnYh3JYgHrohHEYgTZek/+srE1wrGmDIUhCF2xBE6yDGx7hg+Tcw/+kZptjkszQbTADUT6+F4KclkXOdbuqVs6PYYkN52GQY6PMKmrggz3I8m6vVUFhk0WwCh08j3Fsllm+QoMeOIAc9ENaFTBhshAUvqMx1e80M3LM9MjgHbDxMTOagDrl/0Nbk2GWZO5Kg1n4gk1o0RS/lNBAW9PMLMmckwa3XMfyEV2BQ1V8AnmT8DxrCoeD78LOzJvC/B5BAGr5hfbx+gMsmzRYYY3CMXFmBJhZ9AIjMMy5u+BjVsEat4qUqjbFVRJmzQbH2JgRMfrQZFtwwT1f1BOEeGdOqCYnpzbEmiDHuJjxd1gMNjtpPM11XgM//HplhVRCA7TKeHjlNB7qvS9LCbupl1PkZjOFoSXtpr8CDAAzuG2lcSRUzwAAAABJRU5ErkJggg==);
+      background-position: center center;
+      background-repeat: no-repeat; }
+  #font-picker-list .selector {
+    font-family: Consolas, Monaco, "Courier New", monospace !important;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    background: transparent;
+    display: block;
+    height: auto;
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border-radius: 0;
+    border: none;
+    outline: none;
+    cursor: default; }
+  #font-picker-list .selector:hover {
+    background: #eee; }
+  #font-picker-list .selected .selector {
+    color: #111;
+    background: white;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35);
+    cursor: text !important; }
+  #font-picker-list .selected {
+    background: white;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35);
+    margin-top: -1px;
+    border-top: 1px solid #b7b7b7;
+    border-bottom: 1px solid #b7b7b7; }
+  #font-picker-list.font-menu-open {
+    overflow: hidden; }
+  #font-picker-list .overlay {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s cubic-bezier(0.3, 0.1, 0, 1);
+    -moz-transition: opacity 0.2s cubic-bezier(0.3, 0.1, 0, 1);
+    transition: opacity 0.2s cubic-bezier(0.3, 0.1, 0, 1); }
+  #font-picker-list.font-menu-open .overlay {
+    visibility: visible;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 0 0 0 8px; }
+  #font-picker-list.font-menu-open .open-this {
+    background-color: white;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+    position: relative;
+    z-index: 2; }
+    #font-picker-list.font-menu-open .open-this .font-list {
+      overflow-y: scroll; }
+  #font-picker-list .font-list {
+    /* Scrolling shadows by Lea Verou 
+     * http://lea.verou.me/2012/04/background-attachment-local/
+     */
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(0, 0, 0, 0.2), transparent);
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 100% 30px, 100% 8px;
+    background-attachment: local, scroll; }
+  #font-picker-list .font {
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35);
+    cursor: pointer;
+    padding: 9px 11px 6px;
+    display: none; }
+  #font-picker-list .font:hover,
+  #font-picker-list .open-this .font:hover {
+    background-color: #4285f4; }
+    #font-picker-list .font:hover *,
+    #font-picker-list .open-this .font:hover * {
+      color: white;
+      border-top-color: white; }
+  #font-picker-list .none {
+    padding-top: 10px;
+    padding-bottom: 10px; }
+    #font-picker-list .none span {
+      font-size: 16px;
+      color: #777; }
+    #font-picker-list .none .arrow {
+      margin-top: 11px; }
+  #font-picker-list .current {
+    display: block; }
+  #font-picker-list .open-this .font {
+    display: block;
+    overflow: hidden; }
+  #font-picker-list .open-this .current {
+    background-color: rgba(0, 0, 0, 0.07); }
+  #font-picker-list.font-menu-open .font.none, #font-picker-list.font-menu-open .weight, #font-picker-list.font-menu-open .combo {
+    display: none; }
+  #font-picker-list .font-family {
+    white-space: nowrap;
+    overflow: hidden; }
+  #font-picker-list .weights {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+    font-size: 10px;
+    color: #b3b3b3;
+    float: right;
+    white-space: nowrap;
+    padding-top: 2px; }
+  #font-picker-list .weights b, #font-picker-list .weights i {
+    font-weight: normal;
+    color: white;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0 3px 1px;
+    border-radius: 2px;
+    margin-right: 2px;
+    vertical-align: top; }
+  #font-picker-list .weights i {
+    font-family: "Times New Roman", serif !important;
+    font-style: italic;
+    border: 1px solid #c5c5c5;
+    color: #c5c5c5;
+    background: transparent;
+    margin-right: 5px;
+    padding: 0 5px 1px 4px; }
+  #font-picker-list .font:hover .weights b {
+    background: white;
+    color: #4285f4; }
+  #font-picker-list .font:hover .weights i {
+    color: white;
+    border-color: white; }
+  #font-picker-list .preview {
+    font-size: 24px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/ }
+  #font-picker-list .arrow {
+    float: right;
+    display: block;
+    border-width: 7px 7px 0 7px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #ccc;
+    margin: 12px 0 0 10px; }
+  #font-picker-list.font-menu-open .arrow {
+    display: none; }
+  #font-picker-list .search-wrapper {
+    width: 100%;
+    position: absolute;
+    bottom: 100%;
+    display: none; }
+  #font-picker-list.font-menu-open .search-wrapper {
+    display: block; }
+  #font-picker-list .search {
+    font-weight: bold;
+    font-size: 14px;
+    color: #4285f4;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 1px 0 rgba(170, 170, 170, 0.35);
+    outline: none;
+    position: relative; }
+  #font-picker-list .nothing {
+    display: none; }
+    #font-picker-list .nothing p {
+      font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+      font-size: 15px;
+      color: #aaa;
+      font-weight: bold;
+      text-align: center;
+      margin: 0;
+      padding: 21px; }
+  #font-picker-list .load-more {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    text-align: center;
+    background: #eaeaea;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    display: none; }
+    #font-picker-list .load-more:hover {
+      background: #4285f4;
+      color: white; }
+  #font-picker-list.font-menu-open .no-results .nothing,
+  #font-picker-list.font-menu-open .load-more {
+    display: block; }
+  #font-picker-list.font-menu-open .no-results .font-list,
+  #font-picker-list.font-menu-open .all-loaded .load-more {
+    display: none; }
+  #font-picker-list .weight {
+    padding: 10px 12px 10px 7px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.35); }
+    #font-picker-list .weight .section-label {
+      display: inline;
+      margin: 0 15px 0 3px;
+      vertical-align: text-bottom;
+      cursor: pointer; }
+    #font-picker-list .weight .select-weight input[type=radio] {
+      display: none; }
+    #font-picker-list .weight .select-weight .preview-weight {
+      font-size: 14px;
+      color: #999;
+      cursor: pointer;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      -webkit-transition: background-color 0.1s linear, border-color 0.1s linear, color 0.1s linear;
+      -moz-transition: background-color 0.1s linear, border-color 0.1s linear, color 0.1s linear;
+      transition: background-color 0.1s linear, border-color 0.1s linear, color 0.1s linear;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+    #font-picker-list .weight .select-weight input[type=radio]:checked + .preview-weight {
+      color: #444;
+      background-color: #ddd;
+      border-color: #ddd; }
+    #font-picker-list .weight .select-weight .preview-weight:hover {
+      color: #444;
+      border-color: #d1d1d1; }
+  #font-picker-list .combo .color, #font-picker-list .combo .font-size, #font-picker-list .combo .line-height {
+    width: 33%;
+    padding: 6px 10px 6px 25px;
+    float: left;
+    width: 35%;
+    position: relative; }
+  #font-picker-list .combo .color {
+    width: 30%; }
+  #font-picker-list .combo .color, #font-picker-list .combo .font-size {
+    border-right: 1px solid rgba(170, 170, 170, 0.35); }
+  #font-picker-list .combo input[type=checkbox] {
+    margin: 2px 0 0 -18px;
+    float: left; }
+  #font-picker-list .combo label {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  #font-picker-list .combo input[type=checkbox]:checked + label {
+    color: #444; }
+  #font-picker-list .editable {
+    font-size: 13px;
+    color: #777;
+    outline: none;
+    width: 80px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+
+/*# sourceMappingURL=font-picker.css.map */
