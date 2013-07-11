@@ -1,4 +1,4 @@
-<div id="font-picker">
+<div id="font-picker" data-version="<%= VERSION %>">
     <div id="font-picker-header">
         <button class="add-style"></button>
         <div class="font-picker-heading">Font Picker</div>

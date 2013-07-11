@@ -52,7 +52,9 @@ module.exports = function(grunt) {
                     banner: [
                         '<%= header %>',
                         '(function(window, document) {',
-                        '\n',
+                        '',
+                        'var VERSION = "<%= pkg.version %>";',
+                        '\n'
                     ].join('\n'),
                     footer: '\n})(window, document);'
                 },
@@ -63,6 +65,8 @@ module.exports = function(grunt) {
                 options: {
                     banner: [
                         '<%= header %>',
+                        '',
+                        'var VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n')
                 },
@@ -108,7 +112,7 @@ module.exports = function(grunt) {
         watch: {
             all: {
                 files: ['Gruntfile.js', 'src/*'],
-                tasks: ['default']
+                tasks: ['concat:dev']
             }
         }
     });
