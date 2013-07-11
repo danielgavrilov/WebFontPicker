@@ -8,10 +8,11 @@ var FONTS_LIMIT = 15;
 
 function initialize() {
 
-    if (Picker && document.body.contains(Picker.element)) { 
-        console.log('tried to run twice');
-        return; 
-    }
+    try {
+        if (GoogleFontPicker && document.body.contains(GoogleFontPicker.element)) { 
+            return; 
+        }
+    } catch(e) {}
 
     body = document.body;
 

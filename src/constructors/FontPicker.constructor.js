@@ -1,6 +1,6 @@
 function FontPicker() {
 
-    var picker = this;
+    var picker = window['GoogleFontPicker'] = this;
 
     var activeStyle,
         hideAfter = 2000, //ms
@@ -17,6 +17,12 @@ function FontPicker() {
         this.addButton = this.$$('.add-style');
 
         this.attachEvents();
+
+        setTimeout(function(){
+            if (picker.styles.length === 0) {
+                Picker.add();
+            }
+        }, 10);
     };
 
     this.render = function() {
@@ -52,6 +58,10 @@ function FontPicker() {
     this.remove = function(style) {
         this.list.removeChild(style.element);
         delete this.styles[this.styles.indexOf(style)];
+
+        if (this.styles.length === 0) {
+            Picker.add();
+        }
     };
 
     this.preventFocus = function(event, style) {
