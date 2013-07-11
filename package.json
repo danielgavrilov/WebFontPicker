@@ -2,10 +2,7 @@
     "name": "GoogleFontPicker",
     "description": "A bookmarklet allowing you to quickly change fonts to any Google Font on a website.",
     "keywords": ["gooogle","font","picker","viewer"],
-    "author": {
-        "name": "Daniel Gavrilov",
-        "url": "http://gavrilov.co.uk"
-    },
+    "author": "Daniel Gavrilov (http://gavrilov.co.uk)",
     "repository": {
         "type": "git",
         "url": "https://github.com/danielgavrilov/GoogleFontPicker.git"
@@ -13,7 +10,6 @@
     "version": "0.1.0",
     "dependencies": {},
     "devDependencies": {
-        "sass": "~0.5.0",
         "grunt": "~0.4.1",
         "grunt-contrib-jst": "~0.5.0",
         "grunt-contrib-concat": "~0.3.0",

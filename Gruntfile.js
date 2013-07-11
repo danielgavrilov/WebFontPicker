@@ -4,6 +4,8 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        filename: 'picker',
+
         jsfiles: [
             'src/vendor/underscore.js',
             'src/Helpers.js',
@@ -50,25 +52,22 @@ module.exports = function(grunt) {
                     banner: [
                         '<%= header %>',
                         '(function(window, document) {',
-                        '',
-                        '"use strict";',
                         '\n',
                     ].join('\n'),
                     footer: '\n})(window, document);'
                 },
                 src: ['<%= jsfiles %>'],
-                dest: 'build/<%= pkg.name %>.js'
+                dest: 'build/<%= filename %>.js'
             },
             dev: {
                 options: {
                     banner: [
                         '<%= header %>',
-                        '"use strict";',
                         '\n'
                     ].join('\n')
                 },
                 src: ['<%= jsfiles %>'],
-                dest: 'build/<%= pkg.name %>-dev.js'
+                dest: 'build/<%= filename %>-dev.js'
             }
         },
 
@@ -80,8 +79,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>'],
-                    'bookmarklet.min.js': ['bookmarklet.js']
+                    'build/<%= filename %>.min.js': ['<%= concat.dist.dest %>'],
                 }
             }
         },
@@ -93,7 +91,7 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    '<%= pkg.name %>.css': ['<%= sassfiles %>']
+                    '<%= filename %>.css': ['<%= sassfiles %>']
                 }
             },
             dev: {
@@ -102,7 +100,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'css/font-picker.css': ['<%= sassfiles %>']
+                    'css/<%= filename %>.css': ['<%= sassfiles %>']
                 }
             }
         },
