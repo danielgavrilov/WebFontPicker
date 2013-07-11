@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         filename: 'picker',
 
         jsfiles: [
-            'src/vendor/underscore.js',
+            'vendor/underscore.js',
             'src/Helpers.js',
             'src/BackboneEvents.js',
             'src/constructors/*.js',
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
             'src/Setup.js'
         ],
 
-        sassfiles: ['sass/font-picker.scss'],
+        sassfiles: ['sass/picker.scss'],
 
         header: [
             '/*!',
@@ -95,12 +95,11 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    '<%= filename %>.css': ['<%= sassfiles %>']
+                    'build/<%= filename %>.css': ['<%= sassfiles %>']
                 }
             },
             dev: {
                 options: {
-                    sourcemap: true,
                     style: 'expanded'
                 },
                 files: {
