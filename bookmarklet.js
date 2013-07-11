@@ -5,12 +5,12 @@ javascript:(function(){
 	var link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.type = 'text/css';
-	link.href = url + '/latest.css';
+	link.href = url + '/picker.css';
 
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.async = true;
-	script.src = url + '/latest.min.js';
+	script.src = url + '/picker.min.js';
 
 	document.head.appendChild(link);
 	document.head.appendChild(script);
