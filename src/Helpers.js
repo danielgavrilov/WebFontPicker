@@ -1,4 +1,4 @@
-// Creates a **single** element from an HTML string.
+// Creates a *single* element from an HTML string.
 function elementFromHTML(html) {
     var temp = document.createElement('div');
     if (!html) return temp;
@@ -24,11 +24,11 @@ function tagName(element) {
 // Given two arrays, it checks whether all the values in the second
 // array are identical to the values in the beginning of the first array.
 // 
-//   e.g. startsWith([1,2,3,4,5], [1,2])
-//        => true
+//     startsWith([1,2,3,4,5], [1,2])
+//     => true
 //        
-//        startsWith([1,2,3,4,5], [1,2,4])
-//        => false
+//     startsWith([1,2,3,4,5], [1,2,4])
+//     => false
 //   
 function startsWith(a, b) {
 
@@ -88,8 +88,8 @@ function attachEventTo(elements) {
 // Variants arrays are used by the Google Font Developer API
 // See: https://developers.google.com/fonts/docs/developer_api#Example
 //
-//   e.g. hasItalic(['300', '300italic', 700])
-//        => true
+//     hasItalic(['300', '300italic', 700])
+//      => true
 //        
 function hasItalic(variants) {
     return _.some(variants, function(weight) {
@@ -99,8 +99,8 @@ function hasItalic(variants) {
 
 // Given a variants array, it returns an array of weights available.
 //   
-//   e.g. getWeights(['300', '300italic', 700])
-//        => ['300', '700']
+//     getWeights(['300', '300italic', 700])
+//     => ['300', '700']
 //       
 function getWeights(variants) {
 

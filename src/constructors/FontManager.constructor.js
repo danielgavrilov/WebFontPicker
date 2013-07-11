@@ -44,7 +44,7 @@ function FontManager() {
 
     fonts.load = function(families) {
 
-        var families = _.difference(families, fonts.loaded);
+        families = _.difference(families, fonts.loaded);
 
         if (!families.length) return;
 
@@ -53,8 +53,7 @@ function FontManager() {
 
         _.forEach(families, function(family) {
             fonts.loaded.push(family);
-            fragments.push(family.replace(/ /g, '+')
-                           + ':' + fonts.list[family].variants.join(','));
+            fragments.push(family.replace(/ /g, '+') + ':' + fonts.list[family].variants.join(','));
         });
 
         url += fragments.join('|');
