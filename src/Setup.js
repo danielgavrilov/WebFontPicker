@@ -1,50 +1,62 @@
-var body = document.body;
-
-var transform = (function() {
-    if (body.style.webkitTransform !== undefined) return 'webkitTransform';
-    if (body.style.MozTransform !== undefined) return 'MozTransform';
-    return 'transform';
-})();
-
-var Stylesheet = (function(){
-
-    var element = document.createElement('style');
-    document.head.appendChild(element);
-
-    function newRule() {
-        var rule = document.createTextNode(' ');
-        element.appendChild(rule);
-        return rule;
-    }
-
-    function deleteRule(rule) {
-        if (element.contains(rule)) {
-            element.removeChild(rule);
-        }
-    }
-
-    return {
-        element: element,
-        newRule: newRule,
-        deleteRule: deleteRule
-    }
-
-})();
+var body, 
+    transform, 
+    Stylesheet,
+    Fonts,
+    Picker;
 
 var FONTS_LIMIT = 15;
 
-var KEYBOARD = {
-    ESC: 0
-};
+function initialize() {
 
-var Fonts = new FontManager;
-var Picker = new FontPicker;
+    if (Picker && document.body.contains(Picker.element)) { 
+        console.log('tried to run twice');
+        return; 
+    }
 
-Picker.add({ selector: 'header h1' });
-Picker.add({ selector: 'section h1' });
-Picker.add({ selector: 'h2, h2 *' });
-Picker.add({ selector: 'time' });
-Picker.add({ selector: 'p, li' });
+    body = document.body;
+
+    transform = (function() {
+        if (body.style.webkitTransform !== undefined) return 'webkitTransform';
+        if (body.style.MozTransform !== undefined) return 'MozTransform';
+        return 'transform';
+    })();
+
+    Stylesheet = (function(){
+
+        var element = document.createElement('style');
+        document.head.appendChild(element);
+
+        function newRule() {
+            var rule = document.createTextNode(' ');
+            element.appendChild(rule);
+            return rule;
+        }
+
+        function deleteRule(rule) {
+            if (element.contains(rule)) {
+                element.removeChild(rule);
+            }
+        }
+
+        return {
+            element: element,
+            newRule: newRule,
+            deleteRule: deleteRule
+        }
+
+    })();
+
+    Fonts = new FontManager;
+    Picker = new FontPicker;
+}
+
+if (document.readyState == "complete" || document.readyState == "loaded") {
+    initialize();
+} else {
+    window.addEventListener('DOMContentLoaded', initialize, false)
+}
+
+
 
 // document.body.addEventListener('mouseover', function(event){
 //  event.target.style.outline = '1px solid red';
