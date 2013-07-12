@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 
         watch: {
             all: {
-                files: ['Gruntfile.js', 'src/*'],
+                files: ['Gruntfile.js', 'src/*', 'src/**/*'],
                 tasks: ['concat:dev']
             }
         }
