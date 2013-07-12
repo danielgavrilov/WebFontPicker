@@ -26,7 +26,7 @@ $blue: #4285f4;
 $easing: cubic-bezier(.3,.1,0,1);
 
 #font-picker {
-     /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
+    /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
 
     /* ==========================================================================
        HTML5 display definitions
@@ -317,6 +317,7 @@ $easing: cubic-bezier(.3,.1,0,1);
     button,
     input {
         line-height: normal;
+        border-radius: 0;
     }
 
     /**
@@ -448,9 +449,9 @@ $easing: cubic-bezier(.3,.1,0,1);
     z-index: 99999;
     cursor: default;
 
-    -webkit-transition: -webkit-transform 300ms $easing;
-    -moz-transition: -moz-transform 300ms $easing;
-    transition: transform 300ms $easing;
+    -webkit-transition: -webkit-transform 400ms $easing;
+    -moz-transition: -moz-transform 400ms $easing;
+    transition: transform 400ms $easing;
 
     @include no-select;
 
@@ -545,13 +546,6 @@ $easing: cubic-bezier(.3,.1,0,1);
         display: block;
         margin: 0;
         padding: 4px 9px;
-
-        small {
-            font-size: 12px;
-            font-weight: normal;
-            vertical-align: middle;
-            color: rgba(255,255,255,.5);
-        }
     }
 
     .add-style {
@@ -592,8 +586,16 @@ $easing: cubic-bezier(.3,.1,0,1);
     }
 
         .style > * { display: none; }
+
         .style > .selector-wrapper,
-        .selected > * { display: block; }
+        .selected > * {
+            display: block;
+            opacity: 1;
+            @include transition(opacity 100ms linear);
+        }
+
+        .inactive > * { opacity: 0.5; }
+        &.font-menu-open .inactive > * { opacity: 1; }
 
         .selector-wrapper {
             position: relative;
@@ -601,22 +603,26 @@ $easing: cubic-bezier(.3,.1,0,1);
             input[type=checkbox] {
                 display: none;
             }
-            .toggle {
-                background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAPCAYAAAD+pA/bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAcZJREFUeNqM1L0vQ1EYBvB7fSb8AVKf8RlETGKo1IKaJE0MaEmoP4AwYGARBvGRMAphqI+pC000lWDQxNSBDk2JRENj14GkPK88TY6b26s3+SW3p+95Ts/pOUcPBAKaxVMIfTAEXWBj+xvcwikE4StbQJ5Fuxee4RzGIAUhuGHgKJyxxpsty6yxFsKwB/kwB9XQDiMwCC1sk+8KWBtmX8sBBiACHbAJdbAGdniAD5J3B7+Tmi32iTDDdIAJ8HP6TpjlssxzrVuVWnk/ggUOOAP97Otn1p8BPLALCf7aSyVoxWITLEMb30Psm2CWJzNAN+xDEnohpgS4LTaCxv9oWPkcY0aSmQ7pvA1FnGbcEFCl/f8Ya+LMkswdGWAKPmEDGgzFLzkMYKypZ5ZkTssA19zHNq5jk1J8AmmL8DRrMk8jM2zMvMqsrw8moYIntIft97BoMcASazT2kb6VzPIZt+khuHg9BDnNUljlVRFVaqPcJSuskdoLrruLWb+PbnIXycE5hk54h3V+lu1XwpoUZ+vmeSmDO570JzVMz3LZyczGuc/L4Zun9xGKoQaapT+8chkPzP4vPYfb1MklsnMwjaE53aY/AgwAY29wGBoWby4AAAAASUVORK5CYII=);
-                background-position: center center;
-                background-repeat: no-repeat;
-                width: 40px;
-                height: 39px;
-                display: block;
+            .toggle-wrapper {
+                top: 0;
+                bottom: 0;
+                left: 0;
                 position: absolute;
-                top: 50%;
-                margin: -20px 0 0 2px;
                 cursor: pointer;
             }
+            .toggle {
+                background-color: #999;
+                width: 14px;
+                height: 14px;
+                border-radius: 7px;
+                margin: 15px 13px;
+                display: block;
+                cursor: pointer;
+                @include transition(box-shadow 100ms linear);
+            }
             input[type=checkbox]:checked ~ .toggle {
-                background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAPCAYAAAD+pA/bAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAcVJREFUeNqM1EtLAlEYBuCxzKB+gVHRTaiMQGhl2KKLrYKgRRcLSn9AkUi1qE3YIrpALaPIRVErN7WoDKqFrgIX5UIkgqT8AdWiwHo/eI1xmJkceGAcv/N+M2fOHGtv+F0xOSpgAEahG+y8/gZxOIVL+DYKKDO57odnOIcp+IQY3DFwEs5Y4zfK0rvYCAnYh3JYgHrohHEYgTZek/+srE1wrGmDIUhCF2xBE6yDGx7hg+Tcw/+kZptjkszQbTADUT6+F4KclkXOdbuqVs6PYYkN52GQY6PMKmrggz3I8m6vVUFhk0WwCh08j3Fsllm+QoMeOIAc9ENaFTBhshAUvqMx1e80M3LM9MjgHbDxMTOagDrl/0Nbk2GWZO5Kg1n4gk1o0RS/lNBAW9PMLMmckwa3XMfyEV2BQ1V8AnmT8DxrCoeD78LOzJvC/B5BAGr5hfbx+gMsmzRYYY3CMXFmBJhZ9AIjMMy5u+BjVsEat4qUqjbFVRJmzQbH2JgRMfrQZFtwwT1f1BOEeGdOqCYnpzbEmiDHuJjxd1gMNjtpPM11XgM//HplhVRCA7TKeHjlNB7qvS9LCbupl1PkZjOFoSXtpr8CDAAzuG2lcSRUzwAAAABJRU5ErkJggg==);
-                background-position: center center;
-                background-repeat: no-repeat;
+                background-color: $blue;
+                box-shadow: 0 0 15px $blue;
             }
         }
 

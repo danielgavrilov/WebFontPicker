@@ -24,12 +24,13 @@ function StyleView(state) {
 
         this.rule = Stylesheet.newRule();
         this.fontMenu = new FontMenu(this);
-        this.renderWeights = this.renderWeights.bind(this);
 
         this.model.on('toggle', this.setCheckbox.bind(this));
-        this.model.on('change:family', this.renderWeights);
+        this.model.on('change:family', this.renderWeights.bind(this));
+        this.model.on('change:selector change:active', this.setActive.bind(this));
 
         this.attachEvents();
+        this.setActive();
     };
 
     this.events = {
@@ -170,6 +171,14 @@ _.extend(StyleView.prototype, {
                     elements[i].addEventListener(event, this.events[event][selector].bind(this), false);
                 }
             }
+        }
+    },
+
+    setActive: function(param) {
+        if (param && this.model.state.active && this.model.state.selector) {
+            this.element.classList.remove('inactive');
+        } else {
+            this.element.classList.add('inactive');
         }
     },
 
