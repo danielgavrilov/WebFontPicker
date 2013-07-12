@@ -5,6 +5,7 @@ var body,
     Picker;
 
 var FONTS_LIMIT = 15;
+var GOOGLE_DEVELOPER_API_KEY = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU';
 
 function initialize() {
 

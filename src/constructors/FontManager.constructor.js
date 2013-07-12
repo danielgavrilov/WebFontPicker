@@ -3,9 +3,9 @@ function FontManager() {
     var fonts = this,
         callbacks = [],
         callbackName = 'fontsAPICallback',
-        letters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'.split(''),
-        listAPI = 'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU&callback=',
-        fontsAPI = '//fonts.googleapis.com/css?family=';
+        listAPI = 'https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=' + GOOGLE_DEVELOPER_API_KEY + '&callback=',
+        fontsAPI = '//fonts.googleapis.com/css?family=',
+        letters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'.split('');
 
     fonts.list = [];     // array of font objects from google fonts api response
     fonts.families = []; // array of family names from response
