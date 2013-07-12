@@ -21,6 +21,18 @@ function tagName(element) {
     return element && element.nodeName && element.nodeName.toLowerCase();
 }
 
+// Translates the given element `px` pixels horizontally
+function translateX(element, px) {
+
+    if (!_.isElement(element)) throw new Error('Value is not a DOM element');
+
+    var rule = (px) ? 'translateX('+px+'px)' : '';
+
+    if (element.style && element.style[cssTransform] !== rule) {
+        element.style[cssTransform] = rule;
+    }
+}
+
 // Given two arrays, it checks whether all the values in the second
 // array are identical to the values in the beginning of the first array.
 // 
@@ -32,7 +44,7 @@ function tagName(element) {
 //   
 function startsWith(a, b) {
 
-    if (!_.isArray(a) || !_.isArray(b)) throw new Error('Parameter is not an array');
+    if (!_.isArray(a) || !_.isArray(b)) throw new Error('Value is not an array');
 
     if (a.length < b.length) {
         return false;
@@ -47,9 +59,9 @@ function startsWith(a, b) {
     return true;
 }
 
-// Given an element or NodeList, it returns a **chainable** object
-// with 'on' and 'off' methods, each calling 'addEventListener'
-// and 'removeEventListener', respectively.
+// Given an element or NodeList, it returns a *chainable* object
+// with `on` and `off` methods, each calling `addEventListener`
+// and `removeEventListener`, respectively.
 function attachEventTo(elements) {
 
     if (!elements) return elements;

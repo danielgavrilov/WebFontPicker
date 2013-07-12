@@ -3,7 +3,7 @@ function FontPicker() {
     var picker = window['GoogleFontPicker'] = this;
 
     var activeStyle,
-        hideAfter = 2000, //ms
+        hideAfter = 2500, //ms
         hideTimeout;
 
     this.init = function() {
@@ -27,15 +27,14 @@ function FontPicker() {
 
     this.render = function() {
         var element = elementFromHTML(this.template());
-        body.insertBefore(element, body.firstChild);
+        body.appendChild(element);
         return element;
     };
 
     this.attachEvents = function() {
         attachEventTo(this.addButton).on('click', this.add.bind(this));
-        // attachEventTo(this.element).on('mouseover', this.slide);
-        // attachEventTo(this.element).on('mouseout', this.slide);
-        // attachEventTo(this.element).on('blur', this.slide, true);
+        attachEventTo(this.element).on('mouseover', this.hideHandler)
+                                   .on('mouseout', this.hideHandler);
     };
 
     this.add = function(state) {
@@ -71,27 +70,34 @@ function FontPicker() {
         }
     };
 
-    // Fix: hides when cursor is still over it, after a blur event
-    this.slide = function(event) {
-        if (event.type === "mouseover" && hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-            picker.moveRight('');
-        } else if (!hideTimeout && !picker.element.contains(event.relatedTarget) && !(document.activeElement && picker.element.contains(document.activeElement))) {
-            hideTimeout = setTimeout(function(){
-                picker.moveRight(picker.element.offsetWidth - 20);
+    this.hideHandler = function(event) {
+
+        if (event.type === 'mouseover' && !picker.element.contains(event.relatedTarget)) {
+            attachEventTo(picker.element).off('blur', picker.hide, true);
+            picker.show();
+        }
+
+        else if (event.type === 'mouseout' && !picker.element.contains(event.relatedTarget)) {
+            if (document.activeElement && picker.element.contains(document.activeElement)) {
+                attachEventTo(picker.element).on('blur', picker.hide, true);
+            } else {
+                picker.hide();
+            }
+        }
+    };
+
+    this.hide = function() {
+        if (!hideTimeout) {
+            hideTimeout = setTimeout(function() {
+                translateX(picker.element, picker.element.offsetWidth - 15);
             }, hideAfter);
         }
     };
 
-    this.moveRight = function(px) {
-        if (!px) {
-            if (picker.element.style[transform] !== '') {
-                picker.element.style[transform] = '';
-            }
-        } else {
-            picker.element.style[transform] = 'translateX(' + px + 'px)'; 
-        }
+    this.show = function() {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+        translateX(picker.element, 0);
     };
 
     this.init();

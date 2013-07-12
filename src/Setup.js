@@ -10,13 +10,14 @@ function initialize() {
 
     try {
         if (GoogleFontPicker && document.body.contains(GoogleFontPicker.element)) { 
+            GoogleFontPicker.show();
             return; 
         }
     } catch(e) {}
 
     body = document.body;
 
-    transform = (function() {
+    cssTransform = (function() {
         if (body.style.webkitTransform !== undefined) return 'webkitTransform';
         if (body.style.MozTransform !== undefined) return 'MozTransform';
         return 'transform';
