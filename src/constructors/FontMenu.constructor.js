@@ -6,7 +6,7 @@ function FontMenu(styleView) {
         open: false,
         list: [],
         rendered: [],
-        search: ''
+        keyword: ''
     }
 
     this.init = function() {
@@ -15,11 +15,11 @@ function FontMenu(styleView) {
         this.style = styleView;
         this.model = styleView.model;
 
-        this.element = styleView.element.querySelector('.font-menu');
+        this.element = this.style.element.querySelector('.font-menu');
         this.$ = this.element.querySelectorAll.bind(this.element)
         this.$$ = this.element.querySelector.bind(this.element);
         this.listElement = this.element.querySelector('.font-list');
-        this.searchField = styleView.element.querySelector('.search');
+        this.searchField = this.style.element.querySelector('.search');
         this.noFont = this.element.querySelector('.none');
         this.loadMore = this.element.querySelector('.load-more');
 
@@ -71,7 +71,7 @@ _.extend(FontMenu.prototype, {
         var selected = this.getElement(this.model.state.family);
         this.listElement.scrollTop = selected ? selected.offsetTop : 0;
         
-        if (this.search) this.searchFonts(this.search);
+        if (this.keyword) this.search(this.keyword);
 
         body.addEventListener('click', this.closeMenu, false);
         window.addEventListener('resize', this.maxHeight, false);
@@ -167,9 +167,9 @@ _.extend(FontMenu.prototype, {
         this.model.set({ family: family });
     },
 
-    searchFonts: function(keyword) {
+    search: function(keyword) {
 
-        this.search = keyword;
+        this.keyword = keyword;
         this.listElement.scrollTop = 0;
 
         if (!keyword) {
