@@ -91,14 +91,9 @@ _.extend(Style.prototype, Events, {
 
         if (this.state.active && this.state.selector) {
             var css = this.state.selector + '{' + this.css(this.state) + '}';
-
-            if (this.rule.nodeValue !== css) {
-                this.rule.nodeValue = css;
-            }
-        }
-
-        else if (this.rule.nodeValue !== ' ') {
-            this.rule.nodeValue = ' ';
+            this.rule.set(css);
+        } else {
+            this.rule.set(' ');
         }
 
         return this;

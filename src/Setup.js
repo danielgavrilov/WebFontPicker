@@ -26,9 +26,26 @@ function initialize() {
         document.head.appendChild(element);
 
         function newRule() {
+
             var rule = document.createTextNode(' ');
+            var currentCSS = ' ';
+
             element.appendChild(rule);
-            return rule;
+
+            function set(css) {
+                if (css !== currentCSS) {
+                    rule.nodeValue = currentCSS = css;
+                }
+            }
+
+            function get() {
+                return currentCSS;
+            }
+
+            return {
+                set: set,
+                get: get
+            };
         }
 
         function deleteRule(rule) {
