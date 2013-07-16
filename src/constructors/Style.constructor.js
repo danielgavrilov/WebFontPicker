@@ -23,7 +23,6 @@ function Style(state) {
 
     this.init = function() {
         this.state = _.isObject(state) ? _.extend(defaults, state) : defaults;
-        this.previous = defaults;
         this.css = Templates.CSS;
         this.rule = Stylesheet.newRule();
         this.on('change toggle', this.updateCSS);
@@ -71,15 +70,21 @@ _.extend(Style.prototype, Events, {
     },
 
     enable: function(prop) {
+        
         if (!this.state.enabled[prop]){
             this.toggle(prop);
         }
+
+        return this;
     },
 
     disable: function(prop) {
+        
         if (this.state.enabled[prop]) {
             this.toggle(prop);
         }
+
+        return this;
     },
 
     updateCSS: function() {
