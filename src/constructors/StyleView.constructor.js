@@ -131,7 +131,7 @@ function StyleView(state) {
             },
 
             '.search': function(event) {
-                this.fontMenu.searchFonts(event.target.value);
+                this.fontMenu.search(event.target.value);
             },
 
             '.change-color': function(event) {
