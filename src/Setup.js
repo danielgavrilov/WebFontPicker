@@ -1,26 +1,22 @@
+// Maximum number of fonts loaded in the Font Menu or number of 
+// additional fonts loaded by "Load more". Keep this low as a
+// lot of MBs are gonna get wasted.
+var FONTS_LIMIT = 15;
+var GOOGLE_DEVELOPER_API_KEY = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU'; // Get your own.
+
 var body, 
-    transform, 
+    cssTransform, 
     Stylesheet,
     Fonts,
     Picker;
 
-var FONTS_LIMIT = 15;
-var GOOGLE_DEVELOPER_API_KEY = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU';
-
 function initialize() {
-
-    try {
-        if (GoogleFontPicker && document.body.contains(GoogleFontPicker.element)) { 
-            GoogleFontPicker.show();
-            return; 
-        }
-    } catch(e) {}
 
     body = document.body;
 
     cssTransform = (function() {
-        if (body.style.webkitTransform !== undefined) return 'webkitTransform';
-        if (body.style.MozTransform !== undefined) return 'MozTransform';
+        if (body.style.webkitTransform != undefined) return 'webkitTransform';
+        if (body.style.MozTransform != undefined) return 'MozTransform';
         return 'transform';
     })();
 
@@ -53,38 +49,8 @@ function initialize() {
     Picker = new FontPicker;
 }
 
-if (document.readyState == "complete" || document.readyState == "loaded") {
+if (document.readyState == 'complete' || document.readyState == 'loaded') {
     initialize();
 } else {
-    window.addEventListener('DOMContentLoaded', initialize, false)
+    window.addEventListener('DOMContentLoaded', initialize, false);
 }
-
-
-
-// document.body.addEventListener('mouseover', function(event){
-//  event.target.style.outline = '1px solid red';
-//  event.target.style.cursor = 'default';
-    
-//  var element = event.target;
-//  var selector = '';
-
-//  while (element !== body) {
-//      var current = element.nodeName.toLowerCase();
-//      if (element.id)
-//          current += '#' + element.id;
-//      if (element.className)
-//          current += '.' + element.className.split(' ').join('.');
-//      selector = current + ' > ' + selector;
-//      element = element.parentElement;
-//  }
-
-//  selector = 'html > body > ' + selector;
-
-//  console.log(selector);
-//  event.preventDefault();
-// }, false);
-
-// document.body.addEventListener('mouseout', function(event){
-//  event.target.style.outline = '';
-//  event.target.style.cursor = '';
-// }, false);
