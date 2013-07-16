@@ -7,9 +7,7 @@ function FontManager() {
         fontsAPI = '//fonts.googleapis.com/css?family=',
         letters = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'.split('');
 
-    fonts.list = [];     // array of font objects from google fonts api response
-    fonts.families = []; // array of family names from response
-    fonts.loaded = [];   // array of loaded family names as strings
+    fonts.loaded = []; // array of loaded family names as strings
     fonts.done = false;
 
     fonts.init = function() {
@@ -62,14 +60,14 @@ function FontManager() {
 
     fonts.onload = function(callback, context) {
         if (typeof callback === "function") {
-            if (fonts.done)
+            if (fonts.done) {
                 callback.call(context);
-            else
+            } else {
                 callbacks.push({
                     callback: callback,
                     context: context
                 });
-            return callback;
+            }
         }
     };
 
@@ -80,7 +78,7 @@ function FontManager() {
 
         keyword = keyword.toLowerCase();
 
-        // if keyword is a single letter, search for fonts starting only with letter
+        // if keyword is a single letter, search for fonts starting with letter
         if (keyword.length === 1 && _.contains(letters, keyword)) {
             return _.filter(fonts.families, function(family) {
                 return family.slice(0,1).toLowerCase() === keyword;
