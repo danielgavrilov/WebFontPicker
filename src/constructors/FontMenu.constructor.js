@@ -15,13 +15,13 @@ function FontMenu(styleView) {
         this.style = styleView;
         this.model = styleView.model;
 
-        this.element = this.style.element.querySelector('.font-menu');
-        this.$ = this.element.querySelectorAll.bind(this.element)
-        this.$$ = this.element.querySelector.bind(this.element);
-        this.listElement = this.element.querySelector('.font-list');
-        this.searchField = this.style.element.querySelector('.search');
-        this.noFont = this.element.querySelector('.none');
-        this.loadMore = this.element.querySelector('.load-more');
+        this.element = this.style.$('.font-menu');
+        this.$ = this.element.querySelector.bind(this.element);
+        this.$$ = this.element.querySelectorAll.bind(this.element)
+        this.listElement = this.$('.font-list');
+        this.searchField = this.style.$('.search');
+        this.noFont = this.$('.none');
+        this.loadMore = this.$('.load-more');
 
         this.closeMenu = this.closeMenu.bind(this);
         this.maxHeight = this.maxHeight.bind(this);

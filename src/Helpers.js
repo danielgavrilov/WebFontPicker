@@ -62,7 +62,7 @@ function startsWith(a, b) {
 // Given an element or NodeList, it returns a *chainable* object
 // with `on` and `off` methods, each calling `addEventListener`
 // and `removeEventListener`, respectively.
-function attachEventTo(elements) {
+function events(elements) {
 
     if (!elements) return elements;
 

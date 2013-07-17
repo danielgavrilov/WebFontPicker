@@ -10,16 +10,16 @@ function StyleView(state) {
         this.css = Templates.CSS;
         
         this.element = this.render();
-        this.$ = this.element.querySelectorAll.bind(this.element)
-        this.$$ = this.element.querySelector.bind(this.element);
-        this.selector = this.$$('.selector');
-        this.weights = this.$$('.select-weight');
+        this.$ = this.element.querySelector.bind(this.element);
+        this.$$ = this.element.querySelectorAll.bind(this.element)
+        this.selector = this.$('.selector');
+        this.weights = this.$('.select-weight');
         this.checkboxes = {
-            active: this.$$('.toggle-active'),
-            weight: this.$$('.toggle-weight'),
-            color: this.$$('.toggle-color'),
-            fontSize: this.$$('.toggle-font-size'),
-            lineHeight: this.$$('.toggle-line-height')
+            active: this.$('.toggle-active'),
+            weight: this.$('.toggle-weight'),
+            color: this.$('.toggle-color'),
+            fontSize: this.$('.toggle-font-size'),
+            lineHeight: this.$('.toggle-line-height')
         };
 
         this.rule = Stylesheet.newRule();

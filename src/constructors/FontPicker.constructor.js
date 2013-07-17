@@ -11,10 +11,10 @@ function FontPicker() {
         this.template = Templates.Picker;
 
         this.element = this.render();
-        this.$ = this.element.querySelectorAll.bind(this.element)
-        this.$$ = this.element.querySelector.bind(this.element);
-        this.list = this.$$('#font-picker-list');
-        this.addButton = this.$$('.add-style');
+        this.$ = this.element.querySelector.bind(this.element);
+        this.$$ = this.element.querySelectorAll.bind(this.element)
+        this.list = this.$('#font-picker-list');
+        this.addButton = this.$('.add-style');
 
         this.attachEvents();
 
@@ -32,8 +32,8 @@ function FontPicker() {
     };
 
     this.attachEvents = function() {
-        attachEventTo(this.addButton).on('click', this.add.bind(this));
-        attachEventTo(this.element).on('mouseover', this.hideHandler)
+        events(this.addButton).on('click', this.add.bind(this));
+        events(this.element).on('mouseover', this.hideHandler)
                                    .on('mouseout', this.hideHandler);
     };
 
@@ -73,13 +73,13 @@ function FontPicker() {
     this.hideHandler = function(event) {
 
         if (event.type === 'mouseover' && !picker.element.contains(event.relatedTarget)) {
-            attachEventTo(picker.element).off('blur', picker.hide, true);
+            events(picker.element).off('blur', picker.hide, true);
             picker.show();
         }
 
         else if (event.type === 'mouseout' && !picker.element.contains(event.relatedTarget)) {
             if (document.activeElement && picker.element.contains(document.activeElement)) {
-                attachEventTo(picker.element).on('blur', picker.hide, true);
+                events(picker.element).on('blur', picker.hide, true);
             } else {
                 picker.hide();
             }
