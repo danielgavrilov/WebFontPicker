@@ -1,6 +1,6 @@
 function FontPicker() {
 
-    var picker = window['GoogleFontPicker'] = this;
+    var picker = this;
 
     var activeStyle,
         hideAfter = 2500, //ms

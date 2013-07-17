@@ -63,7 +63,7 @@ function initialize() {
     })();
 
     Fonts = new FontManager;
-    Picker = new FontPicker;
+    window.GoogleFontPicker = Picker = new FontPicker;
 }
 
 if (document.readyState == 'complete' || document.readyState == 'loaded') {
