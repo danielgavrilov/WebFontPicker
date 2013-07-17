@@ -8,8 +8,8 @@ module.exports = function(grunt) {
 
         jsfiles: [
             'vendor/underscore.js',
+            'vendor/Backbone.Events.js',
             'src/Helpers.js',
-            'src/BackboneEvents.js',
             'src/constructors/*.js',
             'src/Templates.js',
             'src/Setup.js'
