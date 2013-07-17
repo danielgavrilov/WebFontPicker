@@ -86,8 +86,8 @@ function FontManager() {
         }
 
         return _.pluck(_.filter(fonts.list, function(fontObj){
-            return fontObj.family.toLowerCase().indexOf(keyword) >= 0 ? true : false ||
-                   fontObj.variants.join(' ').indexOf(keyword) >= 0 ? true : false;
+            return fontObj.family.toLowerCase().indexOf(keyword) > -1 ||
+                   fontObj.variants.join(' ').indexOf(keyword) > -1;
         }), 'family');
     }
 
