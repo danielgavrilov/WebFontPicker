@@ -26,7 +26,8 @@ $blue: #4285f4;
 $easing: cubic-bezier(.3,.1,0,1);
 
 #font-picker {
-    /*! normalize.css v2.1.2 | MIT License | git.io/normalize */
+
+    /* normalize.css v2.1.2 | MIT License | git.io/normalize */
 
     /* ==========================================================================
        HTML5 display definitions
@@ -423,12 +424,38 @@ $easing: cubic-bezier(.3,.1,0,1);
         border-collapse: collapse;
         border-spacing: 0;
     }
-
 }
 
 /* ===========================================
    FONT PICKER
  */
+
+@-webkit-keyframes appear {
+    0% {
+        -webkit-transform: translateX(400px);
+    }
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@-moz-keyframes appear {
+    0% {
+        -moz-transform: translateX(400px);
+    }
+    100% {
+        -moz-transform: translateX(0);
+    }
+}
+
+@keyframes appear {
+    0% {
+        transform: translateX(400px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
 
 #font-picker {
     @include default-font;
@@ -448,6 +475,24 @@ $easing: cubic-bezier(.3,.1,0,1);
                 0 1px 5px rgba(0, 0, 0, 0.15);
     z-index: 99999;
     cursor: default;
+
+    -webkit-animation-name: appear;
+    -webkit-animation-duration: 400ms;
+    -webkit-animation-timing-function: $easing;
+    -webkit-animation-fill-mode: backwards;
+    -webkit-animation-delay: 100ms;
+
+    -moz-animation-name: appear;
+    -moz-animation-duration: 400ms;
+    -moz-animation-timing-function: $easing;
+    -moz-animation-fill-mode: backwards;
+    -moz-animation-delay: 100ms;
+
+    animation-name: appear;
+    animation-duration: 400ms;
+    animation-timing-function: $easing;
+    animation-fill-mode: backwards;
+    animation-delay: 100ms;
 
     -webkit-transition: -webkit-transform 400ms $easing;
     -moz-transition: -moz-transform 400ms $easing;
@@ -504,6 +549,7 @@ $easing: cubic-bezier(.3,.1,0,1);
         float: none;
         width: auto;
         padding: 0;
+        display: inline;
     }
 
     input {

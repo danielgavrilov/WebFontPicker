@@ -4,7 +4,7 @@ javascript:(function(){
     var attached = window[attachedName];
     var Picker = window['GoogleFontPicker'];
 
-    if (attached) {
+    if (attached || Picker && Picker.show) {
         if (Picker && Picker.show) Picker.show();
         return;
     }
