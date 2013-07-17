@@ -4,7 +4,7 @@
             <input type="checkbox" class="toggle-active" <% if (obj.active) { %> checked <% } %>>
             <label class="toggle"></label>
         </label>
-        <input type="text" class="selector" placeholder="CSS selector" value="<%= obj.selector %>">
+        <input type="text" class="selector" placeholder="CSS selector (e.g. body, h1, p)" value="<%= obj.selector %>">
     </div>
     <div class="font-menu">
         <div class="search-wrapper">
