@@ -640,6 +640,10 @@ $easing: cubic-bezier(.3,.1,0,1);
             @include transition(opacity 100ms linear);
         }
 
+        &.font-menu-open .style .selector-wrapper {
+            display: none;
+        }
+
         .inactive > * { opacity: 0.5; }
         &.font-menu-open .inactive > * { opacity: 1; }
 
@@ -869,8 +873,7 @@ $easing: cubic-bezier(.3,.1,0,1);
 
         .search-wrapper {
             width: 100%;
-            position: absolute;
-            bottom: 100%;
+            margin-top: 6px;
             display: none;
         }
         &.font-menu-open .search-wrapper {

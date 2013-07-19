@@ -66,10 +66,6 @@ _.extend(FontMenu.prototype, {
         this.element.classList.add('open-this');
         this.maxHeight();
         this.renderList();
-
-        // scroll to selected font
-        var selected = this.getElement(this.model.state.family);
-        this.listElement.scrollTop = selected ? selected.offsetTop : 0;
         
         if (this.keyword) this.search(this.keyword);
 
@@ -194,7 +190,7 @@ _.extend(FontMenu.prototype, {
     maxHeight: function() {
         var w = window;
         var p = Picker.element;
-        var calc = (w.innerHeight - 2 * p.offsetTop) - (p.offsetHeight - this.element.offsetHeight) + 'px';
+        var calc = (w.innerHeight - 2 * p.offsetTop) - (p.offsetHeight - this.listElement.offsetHeight) + 'px';
         
         if (this.listElement.style.maxHeight !== calc) {
             this.listElement.style.maxHeight = calc;
