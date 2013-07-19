@@ -432,28 +432,28 @@ $easing: cubic-bezier(.3,.1,0,1);
 
 @-webkit-keyframes appear {
     0% {
-        -webkit-transform: translateX(400px);
+        -webkit-transform: translate3d(400px,0,0);
     }
     100% {
-        -webkit-transform: translateX(0);
+        -webkit-transform: translate3d(0,0,0);
     }
 }
 
 @-moz-keyframes appear {
     0% {
-        -moz-transform: translateX(400px);
+        -moz-transform: translate3d(400px,0,0);
     }
     100% {
-        -moz-transform: translateX(0);
+        -moz-transform: translate3d(0,0,0);
     }
 }
 
 @keyframes appear {
     0% {
-        transform: translateX(400px);
+        transform: translate3d(400px,0,0);
     }
     100% {
-        transform: translateX(0);
+        transform: translate3d(0,0,0);
     }
 }
 
@@ -661,7 +661,7 @@ $easing: cubic-bezier(.3,.1,0,1);
                 width: 14px;
                 height: 14px;
                 border-radius: 7px;
-                margin: 15px 13px;
+                margin: 15px 10px 15px 12px;
                 display: block;
                 cursor: pointer;
                 @include transition(box-shadow 100ms linear);
@@ -681,7 +681,7 @@ $easing: cubic-bezier(.3,.1,0,1);
                 display: block;
                 height: auto;
                 width: 100%;
-                padding: 15px 15px 15px 45px;
+                padding: 15px 15px 15px 42px;
                 border-radius: 0;
                 border: none;
                 outline: none;

@@ -26,7 +26,7 @@ function translateX(element, px) {
 
     if (!_.isElement(element)) throw new Error('Value is not a DOM element');
 
-    var rule = (px) ? 'translateX('+px+'px)' : '';
+    var rule = (px) ? 'translate3d('+px+'px, 0, 0)' : 'translate3d(0,0,0)';
 
     if (element.style && element.style[cssTransform] !== rule) {
         element.style[cssTransform] = rule;
