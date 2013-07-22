@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "/",
+			"path": "./",
             "folder_exclude_patterns": [
                 ".git",
                 ".sass-cache",
