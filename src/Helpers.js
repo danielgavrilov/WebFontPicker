@@ -76,14 +76,14 @@ function events(elements) {
 
     function on(event, callback, capture) {
         _.forEach(elements, function(element) {
-            document.addEventListener.call(element, event, callback, capture || false);
+            element.addEventListener(event, callback, capture || false);
         });
         return this;
     }
 
     function off(event, callback, capture) {
         _.forEach(elements, function(element) {
-            document.removeEventListener.call(element, event, callback, capture || false);
+            element.removeEventListener(event, callback, capture || false);
         });
         return this;
     }
