@@ -17,16 +17,6 @@ module.exports = function(grunt) {
 
         sassfiles: ['sass/picker.scss'],
 
-        header: [
-            '/*!',
-            ' * GoogleFontPicker <%= pkg.version %>',
-            ' * Last updated: <%= grunt.template.today("yyyy-mm-dd") %>',
-            ' * ',
-            ' * (c) 2013 Daniel Gavrilov',
-            ' * MIT License',
-            ' */\n',
-        ].join('\n'),
-
         jst: {
             compile: {
                 options: {
@@ -50,9 +40,16 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     banner: [
-                        '<%= header %>',
+                        '/*!',
+                        ' * GoogleFontPicker <%= pkg.version %>',
+                        ' * Last updated: <%= grunt.template.today("yyyy-mm-dd") %>',
+                        ' * ',
+                        ' * (c) 2013 Daniel Gavrilov',
+                        ' * MIT License',
+                        ' */',
+                        ' ',
                         '(function(window, document) {',
-                        '',
+                        ' ',
                         'var VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n'),
@@ -60,18 +57,6 @@ module.exports = function(grunt) {
                 },
                 src: ['<%= jsfiles %>'],
                 dest: 'build/<%= filename %>.js'
-            },
-            dev: {
-                options: {
-                    banner: [
-                        '<%= header %>',
-                        '',
-                        'var VERSION = "<%= pkg.version %>";',
-                        '\n'
-                    ].join('\n')
-                },
-                src: ['<%= jsfiles %>'],
-                dest: 'build/<%= filename %>-dev.js'
             }
         },
 
@@ -111,7 +96,7 @@ module.exports = function(grunt) {
         watch: {
             all: {
                 files: ['Gruntfile.js', 'src/*', 'src/**/*'],
-                tasks: ['concat:dev']
+                tasks: ['concat']
             }
         }
     });
@@ -122,6 +107,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jst','concat:dev']); 
+    grunt.registerTask('default', ['jst','concat']); 
     grunt.registerTask('release', ['jst','concat','uglify']);
 };
