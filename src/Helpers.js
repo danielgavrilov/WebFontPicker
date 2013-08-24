@@ -21,18 +21,6 @@ function tagName(element) {
     return element && element.nodeName && element.nodeName.toLowerCase();
 }
 
-// Translates the given element `px` pixels horizontally
-function translateX(element, px) {
-
-    if (!_.isElement(element)) throw new Error('Value is not a DOM element');
-
-    var rule = (px) ? 'translate3d('+px+'px, 0, 0)' : 'translate3d(0,0,0)';
-
-    if (element.style && element.style[cssTransform] !== rule) {
-        element.style[cssTransform] = rule;
-    }
-}
-
 // Given two arrays, it checks whether all the values in the second
 // array are identical to the values in the beginning of the first array.
 // 
@@ -59,41 +47,6 @@ function startsWith(a, b) {
     return true;
 }
 
-// Given an element or NodeList, it returns a *chainable* object
-// with `on` and `off` methods, each calling `addEventListener`
-// and `removeEventListener`, respectively.
-function events(elements) {
-
-    if (!elements) return elements;
-
-    if (elements.addEventListener) {
-        elements = [elements];
-    } else if (elements[0].addEventListener) {
-        elements = _.toArray(elements);
-    } else {
-        throw new Error('Could not attach event to element');
-    }
-
-    function on(event, callback, capture) {
-        _.forEach(elements, function(element) {
-            element.addEventListener(event, callback, capture || false);
-        });
-        return this;
-    }
-
-    function off(event, callback, capture) {
-        _.forEach(elements, function(element) {
-            element.removeEventListener(event, callback, capture || false);
-        });
-        return this;
-    }
-
-    return {
-        on: on,
-        off: off
-    };
-}
-
 // Given a variants array, it detects whether it contains at least one 
 // italic variant. 
 // 
@@ -101,7 +54,7 @@ function events(elements) {
 // See: https://developers.google.com/fonts/docs/developer_api#Example
 //
 //     hasItalic(['300', '300italic', 700])
-//      => true
+//     => true
 //        
 function hasItalic(variants) {
     return _.some(variants, function(weight) {

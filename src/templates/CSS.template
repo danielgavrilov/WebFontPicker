@@ -1,6 +1,0 @@
-<% if ((obj.tempFamily || obj.family) && !(obj.tempFamily === '')) { %> font-family: <%= obj.tempFamily || obj.family %> !important; <% } %>
-<% if (obj.enabled.weight || obj.tempWeight) { %> font-weight: <%= obj.tempWeight || obj.weight %> !important; <% } %>
-<% if (obj.enabled.fontSize) { %> font-size: <%= obj.fontSize %> !important; <% } %>
-<% if (obj.enabled.color) { %> color: <%= obj.color %> !important; <% } %>
-<% if (obj.enabled.lineHeight) { %> line-height: <%= obj.lineHeight %> !important; <% } %>
-<% if (obj.highlight) { %> text-shadow: 0 0 5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(0, 125, 255, 0.85), 0 0 20px #0CF, 0 0 30px #FFF !important; <% } %>

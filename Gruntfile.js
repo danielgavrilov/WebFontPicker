@@ -4,23 +4,31 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
-        filename: 'picker',
+        filename: 'WFP',
 
-        jsfiles: [
+        dependencies: [
+            'vendor/jquery-2.0.3.js',
             'vendor/underscore.js',
-            'vendor/Backbone.Events.js',
-            'src/Helpers.js',
-            'src/constructors/*.js',
-            'src/Templates.js',
-            'src/Setup.js'
+            'vendor/backbone.js'
         ],
 
-        sassfiles: ['sass/picker.scss'],
+        jsfiles: [
+            'src/Helpers.js',
+            'src/Templates.js',
+            'src/Interfaces/*.js',
+            'src/Models/*.js',
+            'src/Collections/*.js',
+            'src/Views/*.js',
+            'src/Views/**/*.js',
+            'src/Initialize.js'
+        ],
+
+        sassfiles: ['sass/main.scss'],
 
         jst: {
             compile: {
                 options: {
-                    namespace: 'Templates',
+                    namespace: 'WFP.Templates',
                     templateSettings: {
                         variable: 'obj'
                     },
@@ -31,7 +39,7 @@ module.exports = function(grunt) {
                     prettify: true
                 },
                 files: {
-                    'src/Templates.js': ['src/templates/*.template']
+                    'src/Templates.js': ['src/templates/*.tmpl']
                 }
             }
         },
@@ -41,22 +49,23 @@ module.exports = function(grunt) {
                 options: {
                     banner: [
                         '/*!',
-                        ' * GoogleFontPicker <%= pkg.version %>',
+                        ' * Web Font Picker <%= pkg.version %>',
                         ' * Last updated: <%= grunt.template.today("yyyy-mm-dd") %>',
                         ' * ',
                         ' * (c) 2013 Daniel Gavrilov',
                         ' * MIT License',
                         ' */',
                         ' ',
-                        '(function(window, document) {',
+                        '(function(window, document, $, Backbone, undefined) {',
                         ' ',
-                        'var VERSION = "<%= pkg.version %>";',
+                        'var WFP = window.WFP = window.WFP || {};',
+                        'WFP.VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n'),
-                    footer: '\n})(window, document);'
+                    footer: '\n})(window, document, jQuery, Backbone);'
                 },
                 src: ['<%= jsfiles %>'],
-                dest: 'build/<%= filename %>.js'
+                dest: 'build/<%= filename %>.dev.js'
             }
         },
 
@@ -68,7 +77,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/<%= filename %>.min.js': ['<%= concat.dist.dest %>'],
+                    'build/<%= filename %>.min.js': ['<%= dependencies %>', '<%= concat.dist.dest %>'],
                 }
             }
         },
@@ -82,20 +91,12 @@ module.exports = function(grunt) {
                 files: {
                     'build/<%= filename %>.css': ['<%= sassfiles %>']
                 }
-            },
-            dev: {
-                options: {
-                    style: 'expanded'
-                },
-                files: {
-                    'css/<%= filename %>.css': ['<%= sassfiles %>']
-                }
             }
         },
 
         watch: {
             all: {
-                files: ['Gruntfile.js', 'src/*', 'src/**/*'],
+                files: ['Gruntfile.js', '<%= jsfiles %>'],
                 tasks: ['concat']
             }
         }

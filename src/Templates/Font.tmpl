@@ -1,7 +1,7 @@
 <div class="font" data-font-family="<%= obj.family %>">
     <div class="weights">
         <% if (hasItalic(obj.variants)) { %><i>I</i><% } %>
-        <% _.forEach(getWeights(obj.variants), function(weight) { %><b><%= weight.charAt(0) %></b><% }); %>00
+        <% _.forEach(getWeights(obj.variants), function(weight) { %><b data-weight="<%= weight %>"><%= weight.charAt(0) %></b><% }); %>00
     </div>
     <div class="font-family"><%= obj.family %></div>
     <div class="arrow"></div>

@@ -1,29 +1,29 @@
 javascript:(function(){
 
-    var attachedName = 'GoogleFontPickerAttached';
-    var attached = window[attachedName];
-    var Picker = window['GoogleFontPicker'];
+    var WFP = window.WFP = window.WFP || {};
 
-    if (attached || Picker && Picker.show) {
-        if (Picker && Picker.show) Picker.show();
-        return;
+    WFP.Picker && WFP.Picker.show();
+
+    if (WFP.attached || WFP.Picker) return;
+
+    function loadCSS(url) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = url;
+        document.head.appendChild(link);
     }
 
-    var url = 'http://gavrilov.co.uk/gfp/';
+    function loadScript(url) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        document.head.appendChild(script);
+    }
 
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = url + 'picker.css';
+    loadCSS('http://gavrilov.co.uk/wfp/WFP.css');
+    loadScript('http://gavrilov.co.uk/wfp/WFP.min.js');
+   
+    WFP.attached = true;
 
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = url + 'picker.min.js';
-
-    document.head.appendChild(link);
-    document.head.appendChild(script);
-
-    window[attachedName] = true;
-    
 })();

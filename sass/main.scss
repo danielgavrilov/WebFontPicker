@@ -21,414 +21,31 @@
             transition: $properties;
 }
 
+@mixin transform($properties...) {
+    -webkit-transform: $properties;
+       -moz-transform: $properties;
+            transform: $properties;
+}
+
+@mixin linear-gradient($start, $stop) {
+    background: $start;
+    background: -moz-linear-gradient(top, $start 0%, $stop 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-$stop(0%,$start), color-$stop(100%,$stop));
+    background: -webkit-linear-gradient(top, $start 0%, $stop 100%);
+    background: -o-linear-gradient(top, $start 0%, $stop 100%);
+    background: -ms-linear-gradient(top, $start 0%, $stop 100%);
+    background: linear-gradient(to bottom, $start 0%, $stop 100%);
+}
+
 $separator-color: rgba(170,170,170,.35);
 $blue: #4285f4;
 $easing: cubic-bezier(.3,.1,0,1);
 
-#font-picker {
-
-    /* normalize.css v2.1.2 | MIT License | git.io/normalize */
-
-    /* ==========================================================================
-       HTML5 display definitions
-       ========================================================================== */
-
-    /**
-     * Correct `block` display not defined in IE 8/9.
-     */
-
-    article,
-    aside,
-    details,
-    figcaption,
-    figure,
-    footer,
-    header,
-    hgroup,
-    main,
-    nav,
-    section,
-    summary {
-        display: block;
-    }
-
-    /**
-     * Correct `inline-block` display not defined in IE 8/9.
-     */
-
-    audio,
-    canvas,
-    video {
-        display: inline-block;
-    }
-
-    /**
-     * Prevent modern browsers from displaying `audio` without controls.
-     * Remove excess height in iOS 5 devices.
-     */
-
-    audio:not([controls]) {
-        display: none;
-        height: 0;
-    }
-
-    /**
-     * Address styling not present in IE 8/9.
-     */
-
-    [hidden] {
-        display: none;
-    }
-
-    /* ==========================================================================
-       Base
-       ========================================================================== */
-
-    /**
-     * 1. Set default font family to sans-serif.
-     * 2. Prevent iOS text size adjust after orientation change, without disabling
-     *    user zoom.
-     */
-
-    html {
-        font-family: sans-serif; /* 1 */
-        -ms-text-size-adjust: 100%; /* 2 */
-        -webkit-text-size-adjust: 100%; /* 2 */
-    }
-
-    /**
-     * Remove default margin.
-     */
-
-    body {
-        margin: 0;
-    }
-
-    /* ==========================================================================
-       Links
-       ========================================================================== */
-
-    /**
-     * Address `outline` inconsistency between Chrome and other browsers.
-     */
-
-    a:focus {
-        outline: thin dotted;
-    }
-
-    /**
-     * Improve readability when focused and also mouse hovered in all browsers.
-     */
-
-    a:active,
-    a:hover {
-        outline: 0;
-    }
-
-    /* ==========================================================================
-       Typography
-       ========================================================================== */
-
-    /**
-     * Address variable `h1` font-size and margin within `section` and `article`
-     * contexts in Firefox 4+, Safari 5, and Chrome.
-     */
-
-    h1 {
-        font-size: 2em;
-        margin: 0.67em 0;
-    }
-
-    /**
-     * Address styling not present in IE 8/9, Safari 5, and Chrome.
-     */
-
-    abbr[title] {
-        border-bottom: 1px dotted;
-    }
-
-    /**
-     * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
-     */
-
-    b,
-    strong {
-        font-weight: bold;
-    }
-
-    /**
-     * Address styling not present in Safari 5 and Chrome.
-     */
-
-    dfn {
-        font-style: italic;
-    }
-
-    /**
-     * Address differences between Firefox and other browsers.
-     */
-
-    hr {
-        -moz-box-sizing: content-box;
-        box-sizing: content-box;
-        height: 0;
-    }
-
-    /**
-     * Address styling not present in IE 8/9.
-     */
-
-    mark {
-        background: #ff0;
-        color: #000;
-    }
-
-    /**
-     * Correct font family set oddly in Safari 5 and Chrome.
-     */
-
-    code,
-    kbd,
-    pre,
-    samp {
-        font-family: monospace, serif;
-        font-size: 1em;
-    }
-
-    /**
-     * Improve readability of pre-formatted text in all browsers.
-     */
-
-    pre {
-        white-space: pre-wrap;
-    }
-
-    /**
-     * Set consistent quote types.
-     */
-
-    q {
-        quotes: "\201C" "\201D" "\2018" "\2019";
-    }
-
-    /**
-     * Address inconsistent and variable font size in all browsers.
-     */
-
-    small {
-        font-size: 80%;
-    }
-
-    /**
-     * Prevent `sub` and `sup` affecting `line-height` in all browsers.
-     */
-
-    sub,
-    sup {
-        font-size: 75%;
-        line-height: 0;
-        position: relative;
-        vertical-align: baseline;
-    }
-
-    sup {
-        top: -0.5em;
-    }
-
-    sub {
-        bottom: -0.25em;
-    }
-
-    /* ==========================================================================
-       Embedded content
-       ========================================================================== */
-
-    /**
-     * Remove border when inside `a` element in IE 8/9.
-     */
-
-    img {
-        border: 0;
-    }
-
-    /**
-     * Correct overflow displayed oddly in IE 9.
-     */
-
-    svg:not(:root) {
-        overflow: hidden;
-    }
-
-    /* ==========================================================================
-       Figures
-       ========================================================================== */
-
-    /**
-     * Address margin not present in IE 8/9 and Safari 5.
-     */
-
-    figure {
-        margin: 0;
-    }
-
-    /* ==========================================================================
-       Forms
-       ========================================================================== */
-
-    /**
-     * Define consistent border, margin, and padding.
-     */
-
-    fieldset {
-        border: 1px solid #c0c0c0;
-        margin: 0 2px;
-        padding: 0.35em 0.625em 0.75em;
-    }
-
-    /**
-     * 1. Correct `color` not being inherited in IE 8/9.
-     * 2. Remove padding so people aren't caught out if they zero out fieldsets.
-     */
-
-    legend {
-        border: 0; /* 1 */
-        padding: 0; /* 2 */
-    }
-
-    /**
-     * 1. Correct font family not being inherited in all browsers.
-     * 2. Correct font size not being inherited in all browsers.
-     * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
-     */
-
-    button,
-    input,
-    select,
-    textarea {
-        font-family: inherit; /* 1 */
-        font-size: 100%; /* 2 */
-        margin: 0; /* 3 */
-    }
-
-    /**
-     * Address Firefox 4+ setting `line-height` on `input` using `!important` in
-     * the UA stylesheet.
-     */
-
-    button,
-    input {
-        line-height: normal;
-        border-radius: 0;
-    }
-
-    /**
-     * Address inconsistent `text-transform` inheritance for `button` and `select`.
-     * All other form control elements do not inherit `text-transform` values.
-     * Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
-     * Correct `select` style inheritance in Firefox 4+ and Opera.
-     */
-
-    button,
-    select {
-        text-transform: none;
-    }
-
-    /**
-     * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
-     *    and `video` controls.
-     * 2. Correct inability to style clickable `input` types in iOS.
-     * 3. Improve usability and consistency of cursor style between image-type
-     *    `input` and others.
-     */
-
-    button,
-    html input[type="button"], /* 1 */
-    input[type="reset"],
-    input[type="submit"] {
-        -webkit-appearance: button; /* 2 */
-        cursor: pointer; /* 3 */
-    }
-
-    /**
-     * Re-set default cursor for disabled elements.
-     */
-
-    button[disabled],
-    html input[disabled] {
-        cursor: default;
-    }
-
-    /**
-     * 1. Address box sizing set to `content-box` in IE 8/9.
-     * 2. Remove excess padding in IE 8/9.
-     */
-
-    input[type="checkbox"],
-    input[type="radio"] {
-        box-sizing: border-box; /* 1 */
-        padding: 0; /* 2 */
-    }
-
-    /**
-     * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
-     * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
-     *    (include `-moz` to future-proof).
-     */
-
-    input[type="search"] {
-        -webkit-appearance: textfield; /* 1 */
-        -moz-box-sizing: content-box;
-        -webkit-box-sizing: content-box; /* 2 */
-        box-sizing: content-box;
-    }
-
-    /**
-     * Remove inner padding and search cancel button in Safari 5 and Chrome
-     * on OS X.
-     */
-
-    input[type="search"]::-webkit-search-cancel-button,
-    input[type="search"]::-webkit-search-decoration {
-        -webkit-appearance: none;
-    }
-
-    /**
-     * Remove inner padding and border in Firefox 4+.
-     */
-
-    button::-moz-focus-inner,
-    input::-moz-focus-inner {
-        border: 0;
-        padding: 0;
-    }
-
-    /**
-     * 1. Remove default vertical scrollbar in IE 8/9.
-     * 2. Improve readability and alignment in all browsers.
-     */
-
-    textarea {
-        overflow: auto; /* 1 */
-        vertical-align: top; /* 2 */
-    }
-
-    /* ==========================================================================
-       Tables
-       ========================================================================== */
-
-    /**
-     * Remove most spacing between table cells.
-     */
-
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-}
-
 /* ===========================================
    FONT PICKER
  */
+
+@import "normalize";
 
 @-webkit-keyframes appear {
     0% {
@@ -579,11 +196,12 @@ $easing: cubic-bezier(.3,.1,0,1);
  */
 
 #font-picker-header {
-    background: $blue;
     border-radius: 7px 0 0 0;
     border-bottom: 1px solid #2d64be;
     position: relative;
     z-index: 1; // so that border overlaps Style
+
+    @include linear-gradient(#418aff, #307af2);
 
     .font-picker-heading {
         font-size: 14px;
@@ -591,7 +209,8 @@ $easing: cubic-bezier(.3,.1,0,1);
         color: white;
         display: block;
         margin: 0;
-        padding: 4px 9px;
+        padding: 5px 10px;
+        text-shadow: 0 1px 0 rgba(0,0,0,.2);
     }
 
     .add-style {
@@ -602,8 +221,8 @@ $easing: cubic-bezier(.3,.1,0,1);
         float: right;
         border: none;
         margin: 4px 5px 0 0;
-        width: 28px;
-        height: 22px;
+        width: 30px;
+        height: 24px;
         border-radius: 3px;
         @include transition(all .1s linear);
         opacity: .6;
@@ -616,7 +235,7 @@ $easing: cubic-bezier(.3,.1,0,1);
 
 
 /* ===========================================
-   Selector list
+   Style List
  */
 
 #font-picker-list {
@@ -631,69 +250,85 @@ $easing: cubic-bezier(.3,.1,0,1);
         border-bottom: 1px solid $separator-color;
     }
 
-        .style > * { display: none; }
-
-        .style > .selector-wrapper,
-        .selected > * {
-            display: block;
-            opacity: 1;
+        .child {
+            display: none;
             @include transition(opacity 100ms linear);
         }
 
-        &.font-menu-open .style .selector-wrapper {
+        .selected .child {
+            display: block;
+        }
+
+        .always-visible {
+            display: block;
+            opacity: 1 !important;
+        }
+
+    &.font-menu-open .style,
+    &.font-menu-open .child {
+        display: none;
+    }
+    &.font-menu-open .style.selected {
+        display: block;
+    }
+
+    .inactive .child { opacity: 0.5; }
+    &.font-menu-open .inactive .child { opacity: 1; }
+
+
+    /* ===========================================
+       Selector
+    */
+
+    .selector-wrapper {
+        position: relative;
+
+        input[type=checkbox] {
             display: none;
         }
+        .toggle-wrapper {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            cursor: pointer;
+        }
+        .toggle {
+            background-color: #999;
+            width: 14px;
+            height: 14px;
+            border-radius: 7px;
+            margin: 15px 10px 15px 12px;
+            display: block;
+            cursor: pointer;
+            @include transition(box-shadow 100ms linear);
+        }
+        input[type=checkbox]:checked ~ .toggle {
+            background-color: $blue;
+            box-shadow: 0 0 15px $blue;
+        }
+    }
 
-        .inactive > * { opacity: 0.5; }
-        &.font-menu-open .inactive > * { opacity: 1; }
+        .selector {
+            font-family: Consolas, Monaco, "Courier New", monospace !important;
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            background: transparent;
+            display: block;
+            height: auto;
+            width: 100%;
+            padding: 15px 15px 15px 42px;
+            border-radius: 0;
+            border: none;
+            outline: none;
+            cursor: default;
 
-        .selector-wrapper {
-            position: relative;
-
-            input[type=checkbox] {
-                display: none;
-            }
-            .toggle-wrapper {
-                top: 0;
-                bottom: 0;
-                left: 0;
-                position: absolute;
-                cursor: pointer;
-            }
-            .toggle {
-                background-color: #999;
-                width: 14px;
-                height: 14px;
-                border-radius: 7px;
-                margin: 15px 10px 15px 12px;
-                display: block;
-                cursor: pointer;
-                @include transition(box-shadow 100ms linear);
-            }
-            input[type=checkbox]:checked ~ .toggle {
-                background-color: $blue;
-                box-shadow: 0 0 15px $blue;
+            &:hover {
+                background: #eee;
             }
         }
 
-            .selector {
-                font-family: Consolas, Monaco, "Courier New", monospace !important;
-                font-size: 13px;
-                font-weight: bold;
-                color: #555;
-                background: transparent;
-                display: block;
-                height: auto;
-                width: 100%;
-                padding: 15px 15px 15px 42px;
-                border-radius: 0;
-                border: none;
-                outline: none;
-                cursor: default;
-            }
-                .selector:hover {
-                    background: #eee;
-                }
 
     .selected .selector {
         color: #111;
@@ -733,24 +368,46 @@ $easing: cubic-bezier(.3,.1,0,1);
         border-radius: 0 0 0 8px;
     }
 
+    .destroy {
+        font-size: 12px;
+        color: white;
+        background-color: #ccc;
+        padding: 2px 6px;
+        border: 0;
+        border-radius: 4px;
+        position: absolute;
+        top: 12px;
+        right: 8px;
 
-/* ===========================================
-   Font menu
-*/
+        &:hover {
+            background-color: #c42323;
+        }
+    }
 
+    .destroy.disabled {
+        display: none;
+    }
+
+
+    /* ===========================================
+       Font menu
+    */
 
     &.font-menu-open .open-this {
         background-color: white;
         box-shadow: 0 3px 12px rgba(0,0,0,.35);
         position: relative;
         z-index: 2;
+        display: block;
 
-        .font-list {
+        @include transition(none);
+
+        .font-list-wrapper {
             overflow-y: scroll;
         }
     }
 
-    .font-list {
+    .font-list-wrapper {
 
         /* Scrolling shadows by Lea Verou 
          * http://lea.verou.me/2012/04/background-attachment-local/
@@ -773,12 +430,13 @@ $easing: cubic-bezier(.3,.1,0,1);
         border-bottom: 1px solid $separator-color;
         cursor: pointer;
         padding: 9px 11px 6px;
-        display: none;
     }
 
     .font:hover,
     .open-this .font:hover {
-        background-color: $blue;
+        
+        @include linear-gradient(#3482ff, #2173f8);
+
         * {
             color: white;
             border-top-color: white;
@@ -797,13 +455,8 @@ $easing: cubic-bezier(.3,.1,0,1);
         }
     }
 
-    .current { display: block; }
-    .open-this .font { display: block; overflow: hidden; }
     .open-this .current { background-color: rgba(0,0,0,.07); }
-
-    &.font-menu-open .font.none,
-    &.font-menu-open .weight, 
-    &.font-menu-open .combo { display: none; }
+    &.font-menu-open .current-wrapper { display: none; }
 
         .font-family {
             white-space: nowrap;
@@ -854,7 +507,6 @@ $easing: cubic-bezier(.3,.1,0,1);
             color: #666;
             white-space: nowrap;
             overflow: hidden;
-            /*text-overflow: ellipsis;*/
         }
 
         .arrow {
@@ -866,14 +518,13 @@ $easing: cubic-bezier(.3,.1,0,1);
             border-top-color: #ccc;
             margin: 12px 0 0 10px;
         }
-
         &.font-menu-open .arrow {
             display: none;
         }
 
         .search-wrapper {
             width: 100%;
-            margin-top: 6px;
+            margin-top: 7px;
             display: none;
         }
         &.font-menu-open .search-wrapper {
@@ -891,6 +542,13 @@ $easing: cubic-bezier(.3,.1,0,1);
             outline: none;
             position: relative;
             -webkit-appearance: none;
+        }
+
+        .font-list-wrapper {
+            display: none;
+        }
+        &.font-menu-open .font-list-wrapper {
+            display: block;
         }
 
         .nothing {
@@ -930,17 +588,16 @@ $easing: cubic-bezier(.3,.1,0,1);
             .load-more {
                 display: block;
             }
-            .no-results .font-list,
+            .no-results .font-list-wrapper,
             .all-loaded .load-more {
                 display: none;
             }
         }
 
 
-
-/* ===========================================
-   Weight
-*/
+    /* ===========================================
+       Weight
+    */
 
     .weight {
         padding: 10px 12px 10px 7px;
@@ -951,7 +608,7 @@ $easing: cubic-bezier(.3,.1,0,1);
 
         .section-label {
             display: inline;
-            margin: 0 15px 0 3px;
+            margin: 0 9px 0 3px;
             vertical-align: text-bottom;
             cursor: pointer;
         }
@@ -971,6 +628,11 @@ $easing: cubic-bezier(.3,.1,0,1);
 
                 @include transition(background-color .1s linear, border-color .1s linear, color .1s linear);
                 @include no-select;
+
+                &:hover {
+                    color: #444;
+                    border-color: #d1d1d1;
+                }
             }
 
             input[type=radio]:checked + .preview-weight {
@@ -978,18 +640,13 @@ $easing: cubic-bezier(.3,.1,0,1);
                 background-color: #ddd;
                 border-color: #ddd;
             }
-
-            .preview-weight:hover {
-                color: #444;
-                border-color: #d1d1d1;
-            }
         }
     }
 
 
-/* ===========================================
-   Color, Font size and Line height
-*/
+    /* ===========================================
+       Color, Font size and Line height
+    */
 
     .combo {
 
