@@ -24,6 +24,6 @@ Bookmark the <a href="javascript:(function(){
     loadCSS('http://gavrilov.co.uk/wfp/WFP.css');
     loadScript('http://gavrilov.co.uk/wfp/WFP.min.js');
     WFP.attached = true;
-})();" title="Web Font Picker">Web Font Picker</a> and open it on any website. *The bookmarklet will most likely to change in the future.*
+})();" title="Web Font Picker">Web Font Picker</a> and open it on any website. *The bookmarklet will most likely change in the future.*
 
 That's about it, for now.
