@@ -20,16 +20,14 @@ function Stylesheet() {
             return currentCSS;
         }
 
+        function destroy() {
+            element.removeChild(node);
+        }
+
         return {
             set: set,
             get: get,
-            node: node
+            destroy: destroy
         };
-    };
-
-    this.removeRule = function(rule) {
-        if (element.contains(rule.node)) {
-            element.removeChild(rule.node);
-        }
     };
 }

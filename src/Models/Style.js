@@ -54,7 +54,7 @@ var Style = Backbone.Model.extend({
             this.trigger(evt);
         });
         this.on('destroy', function() {
-            stylesheet.removeRule(this.rule);
+            this.rule.destroy();
         });
     },
 
