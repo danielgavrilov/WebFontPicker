@@ -83,11 +83,11 @@ var Style = Backbone.Model.extend({
         highlight: 'highlight'
     },
 
-    _toggleProp: function(prop, value) {
+    _toggleProp: function(prop) {
         return this._toggleMap[prop] || prop + 'Enabled';
     },
 
-    _setToggleProp: function(prop, value) {
+    _setToggle: function(prop, value) {
         var property = this._toggleProp(prop);
         var changes = {};
 
@@ -108,12 +108,12 @@ var Style = Backbone.Model.extend({
     },
 
     enable: function(prop) {
-        this._setToggleProp(prop, true);
+        this._setToggle(prop, true);
         return this;
     },
 
     disable: function(prop) {
-        this._setToggleProp(prop, false);
+        this._setToggle(prop, false);
         return this;
     },
 
