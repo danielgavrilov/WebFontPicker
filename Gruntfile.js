@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     prettify: true
                 },
                 files: {
-                    'src/Templates.js': ['src/templates/*.tmpl']
+                    'src/Templates.js': ['src/Templates/*.tmpl']
                 }
             }
         },
@@ -55,17 +55,18 @@ module.exports = function(grunt) {
                         ' * (c) 2013 Daniel Gavrilov',
                         ' * MIT License',
                         ' */',
-                        ' ',
+                        '',
                         '(function(window, document, $, Backbone, undefined) {',
-                        ' ',
+                        '',
                         'var WFP = window.WFP = window.WFP || {};',
+                        '',
                         'WFP.VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n'),
                     footer: '\n})(window, document, jQuery, Backbone);'
                 },
                 src: ['<%= jsfiles %>'],
-                dest: 'build/<%= filename %>.dev.js'
+                dest: 'build/<%= filename %>.js'
             }
         },
 
@@ -77,7 +78,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/<%= filename %>.min.js': ['<%= dependencies %>', '<%= concat.dist.dest %>'],
+                    'build/<%= filename %>.min.js': ['<%= concat.dist.dest %>'],
+                }
+            },
+            full: {
+                files: {
+                    'build/<%= filename %>.full.min.js': ['<%= dependencies %>', '<%= concat.dist.dest %>'],
                 }
             }
         },
@@ -108,6 +114,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jst','concat']); 
-    grunt.registerTask('release', ['jst','concat','uglify']);
+    grunt.registerTask('default', ['jst', 'concat', 'uglify:dist']);
+    grunt.registerTask('release', ['jst', 'concat', 'uglify:full']);
 };

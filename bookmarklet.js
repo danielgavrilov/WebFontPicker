@@ -22,7 +22,7 @@ javascript:(function(){
     }
 
     loadCSS('http://gavrilov.co.uk/wfp/WFP.css');
-    loadScript('http://gavrilov.co.uk/wfp/WFP.min.js');
+    loadScript('http://gavrilov.co.uk/wfp/WFP.full.min.js');
    
     WFP.attached = true;
 
