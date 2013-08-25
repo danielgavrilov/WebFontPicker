@@ -118,12 +118,7 @@ var Style = Backbone.Model.extend({
     },
 
     toggle: function(prop) {
-        if (this.propEnabled(prop)) {
-            this.disable(prop);
-        } else {
-            this.enable(prop);
-        }
-
+        this.propEnabled(prop) ? this.disable(prop) : this.enable(prop);
         return this;
     },
 
