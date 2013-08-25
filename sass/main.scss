@@ -1,76 +1,37 @@
-@mixin border-box {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-}
-
-@mixin default-font {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
-}
-
-@mixin no-select {
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-}
-
-@mixin transition($properties...) {
-    -webkit-transition: $properties;
-       -moz-transition: $properties;
-            transition: $properties;
-}
-
-@mixin transform($properties...) {
-    -webkit-transform: $properties;
-       -moz-transform: $properties;
-            transform: $properties;
-}
-
-@mixin linear-gradient($start, $stop) {
-    background: $start;
-    background: -moz-linear-gradient(top, $start 0%, $stop 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-$stop(0%,$start), color-$stop(100%,$stop));
-    background: -webkit-linear-gradient(top, $start 0%, $stop 100%);
-    background: -o-linear-gradient(top, $start 0%, $stop 100%);
-    background: -ms-linear-gradient(top, $start 0%, $stop 100%);
-    background: linear-gradient(to bottom, $start 0%, $stop 100%);
-}
-
-$separator-color: rgba(170,170,170,.35);
-$blue: #4285f4;
-$easing: cubic-bezier(.3,.1,0,1);
-
-/* ===========================================
-   FONT PICKER
- */
-
+@import "variables";
+@import "mixins";
 @import "normalize";
 
 @-webkit-keyframes appear {
     0% {
         -webkit-transform: translate3d(400px,0,0);
+        opacity: 0;
     }
     100% {
         -webkit-transform: translate3d(0,0,0);
+        opacity: 1;
     }
 }
 
 @-moz-keyframes appear {
     0% {
         -moz-transform: translate3d(400px,0,0);
+        opacity: 0;
     }
     100% {
         -moz-transform: translate3d(0,0,0);
+        opacity: 1;
     }
 }
 
 @keyframes appear {
     0% {
         transform: translate3d(400px,0,0);
+        opacity: 0;
     }
     100% {
         transform: translate3d(0,0,0);
+        opacity: 1;
     }
 }
 
@@ -96,25 +57,20 @@ $easing: cubic-bezier(.3,.1,0,1);
     -webkit-animation-name: appear;
     -webkit-animation-duration: 400ms;
     -webkit-animation-timing-function: $easing;
-    -webkit-animation-fill-mode: backwards;
-    -webkit-animation-delay: 100ms;
 
     -moz-animation-name: appear;
     -moz-animation-duration: 400ms;
     -moz-animation-timing-function: $easing;
-    -moz-animation-fill-mode: backwards;
-    -moz-animation-delay: 100ms;
 
     animation-name: appear;
     animation-duration: 400ms;
     animation-timing-function: $easing;
-    animation-fill-mode: backwards;
-    animation-delay: 100ms;
 
     -webkit-transition: -webkit-transform 400ms $easing;
     -moz-transition: -moz-transform 400ms $easing;
     transition: transform 400ms $easing;
 
+    @include transform(translate3d(400px,0,0));
     @include no-select;
 
     * {
@@ -578,7 +534,7 @@ $easing: cubic-bezier(.3,.1,0,1);
             display: none;
             
             &:hover {
-                background: $blue;
+                @include linear-gradient(#3482ff, #2173f8);
                 color: white;
             }
         }

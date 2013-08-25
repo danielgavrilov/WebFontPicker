@@ -1,0 +1,38 @@
+@mixin border-box {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+@mixin no-select {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+@mixin transition($properties...) {
+    -webkit-transition: $properties;
+       -moz-transition: $properties;
+            transition: $properties;
+}
+
+@mixin transform($properties...) {
+    -webkit-transform: $properties;
+       -moz-transform: $properties;
+            transform: $properties;
+}
+
+@mixin linear-gradient($start, $stop) {
+    background: $start;
+    background: -moz-linear-gradient(top, $start 0%, $stop 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-$stop(0%,$start), color-$stop(100%,$stop));
+    background: -webkit-linear-gradient(top, $start 0%, $stop 100%);
+    background: -o-linear-gradient(top, $start 0%, $stop 100%);
+    background: -ms-linear-gradient(top, $start 0%, $stop 100%);
+    background: linear-gradient(to bottom, $start 0%, $stop 100%);
+}
+
+@mixin default-font {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif !important;
+}
