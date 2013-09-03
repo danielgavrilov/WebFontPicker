@@ -56,7 +56,7 @@ var PickerView = Backbone.View.extend({
         }
     },
 
-    add: function(event) {
+    add: function() {
         var model = new Style;
         Styles.add(model).select(model);
     },
