@@ -4,26 +4,6 @@ A bookmarklet that helps designers preview Web Fonts on any website. Currently o
 
 ## Usage
 
-Bookmark the <a href="javascript:(function(){
-    var WFP = window.WFP = window.WFP || {};
-    WFP.Picker && WFP.Picker.show();
-    if (WFP.attached || WFP.Picker) return;
-    function loadCSS(url) {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = url;
-        document.head.appendChild(link);
-    }
-    function loadScript(url) {
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-        document.head.appendChild(script);
-    }
-    loadCSS('http://gavrilov.co.uk/wfp/WFP.css');
-    loadScript('http://gavrilov.co.uk/wfp/WFP.min.js');
-    WFP.attached = true;
-})();" title="Web Font Picker">Web Font Picker</a> and open it on any website. *The bookmarklet will most likely change in the future.*
+~~Bookmark the <a href="javascript:!function(){function b(a){var b=document.createElement('link');b.rel='stylesheet',b.type='text/css',b.href=a,document.head.appendChild(b)}function c(a){var b=document.createElement('script');b.type='text/javascript',b.src=a,document.head.appendChild(b)}var a=window.WFP=window.WFP||{};a.Picker&&a.Picker.show(),a.attached||a.Picker||(b('http://gavrilov.co.uk/wfp/WFP.css'),c('http://gavrilov.co.uk/wfp/WFP.min.js'),a.attached=!0)}();" title="Web Font Picker">Web Font Picker</a> and open it on any website.~~
 
-That's about it, for now.
+**EDIT:** Github doesn't like javascript links. Until I make a super awesome website for this thing, the bookmarklet is available in `bookmarklet.js`.
