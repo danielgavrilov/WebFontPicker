@@ -1,23 +1,25 @@
 var PickerView = Backbone.View.extend({
 
     template: WFP.Templates.Picker,
-    
-    hideAfter: 2000,
 
     initialize: function() {
 
-        this.setElement(elementFromHTML(this.template()));
+        // Options
+        this.hideAfter = 2500;  // How long to wait (in milliseconds) before the picker is hidden.
+        this.visibleLimit = 15; // How much (in px) of the element is visible horizontally when hidden to the side.
 
+        // Constructing an element from the template
+        var element = elementFromHTML(this.template());
+        this.setElement(element);
+
+        // Caching selectors
         this.$list = this.$('#font-picker-list');
         this.$add  = this.$('.add-style');
 
-        this.listenTo(Styles, 'add', this.append);
+        // Attaching events
+        this.listenTo(Styles, 'add', this.add);
         this.listenTo(Styles, 'remove', this._onModelRemove); 
         this.attachEvents();
-
-        this.add();
-
-        Fonts.load('Open Sans');
     },
 
     attachEvents: function() {
@@ -44,24 +46,11 @@ var PickerView = Backbone.View.extend({
             }
         });
 
-        this.$add.on('click', this.add);
+        this.$add.on('click', Styles.addNew);
     },
 
-    _onModelRemove: function(model) {
-        if (Styles.length === 0) {
-            this.add();
-        }
-        if (model.get('selected')) {
-            Styles.select(Styles.last());
-        }
-    },
-
-    add: function() {
-        var model = new Style;
-        Styles.add(model).select(model);
-    },
-
-    append: function(model) {
+    // Creates a new view with the model passed and appends it to the list.
+    add: function(model) {
         var view = new StyleView({ model: model });
         this.$list.append(view.el);
         
@@ -70,20 +59,24 @@ var PickerView = Backbone.View.extend({
         });
     },
 
+    // Slides the picker out horizontally. 
+    // If `px` (Number) is passed, only `px` pixels is slid out.
     slideOut: function(px) {
         var x = (!isNaN(px)) ? this.el.offsetWidth - px : 0;
         this.$el.css('transform', 'translate3d(' + x + 'px, 0, 0)');
     },
 
+    // Hides the picker after the specified waiting time.
     hide: function() {
         var picker = this;
         if (!this.hideTimeout) {
             this.hideTimeout = setTimeout(function() {
-                picker.slideOut(20);
+                picker.slideOut(picker.visibleLimit);
             }, this.hideAfter);
         }
     },
 
+    // Shows the picker instantly.
     show: function() {
         clearTimeout(this.hideTimeout);
         this.hideTimeout = null;

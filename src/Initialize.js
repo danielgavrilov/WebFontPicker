@@ -12,4 +12,6 @@ $(function(){
 
     document.body.appendChild(Picker.el);
     
+    Fonts.load('Open Sans'); // The font used by the picker.
+
 });
