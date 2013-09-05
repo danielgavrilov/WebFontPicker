@@ -20,6 +20,7 @@ var PickerView = Backbone.View.extend({
         this.listenTo(Styles, 'add', this.add);
         this.listenTo(Styles, 'remove', this._onModelRemove); 
         this.attachEvents();
+        this.populate();
     },
 
     attachEvents: function() {
@@ -49,6 +50,13 @@ var PickerView = Backbone.View.extend({
         this.$add.on('click', Styles.addNew);
     },
 
+    populate: function() {
+        var picker = this;
+        Styles.forEach(function(model) {
+            picker.add(model);
+        });
+    },
+
     // Creates a new view with the model passed and appends it to the list.
     add: function(model) {
         var view = new StyleView({ model: model });
@@ -60,7 +68,7 @@ var PickerView = Backbone.View.extend({
     },
 
     // Slides the picker out horizontally. 
-    // If `px` (Number) is passed, only `px` pixels is slid out.
+    // `px` (Number) is the distance (in pixels) from the edge of the element to the edge of the window.
     slideOut: function(px) {
         var x = (!isNaN(px)) ? this.el.offsetWidth - px : 0;
         this.$el.css('transform', 'translate3d(' + x + 'px, 0, 0)');

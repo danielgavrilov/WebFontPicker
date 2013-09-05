@@ -8,7 +8,7 @@ var StyleList = Backbone.Collection.extend({
 		this.addIfEmpty();
 	},
 
-	// Adds a new model to the collection (and selects it).
+	// Adds a new blank model to the collection (and selects it).
 	addNew: function() {
 		var model = new Style;
         this.add(model).select(model);
@@ -16,13 +16,9 @@ var StyleList = Backbone.Collection.extend({
 
 	// Adds a new model if the collection is empty.
 	addIfEmpty: function() {
-		var styles = this; 
-		// Deferred so that event handlers can be attached before event fires.
-		_.defer(function() {
-			if (styles.length === 0) {
-				styles.addNew();
-			}	
-		});
+		if (this.length === 0) {
+			this.addNew();
+		}
 	},
 
 	// Returns the model that is selected.
