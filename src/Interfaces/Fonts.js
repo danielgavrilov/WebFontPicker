@@ -80,14 +80,9 @@ var Fonts = (function() {
     }
 
     fonts.load = function(families) {
-
-        var deferred = $.Deferred();
-
         fonts.onload(function() {
             load(families);
         });
-
-        return deferred;
     };
 
     fonts.search = function(query) {
