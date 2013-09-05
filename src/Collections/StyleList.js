@@ -11,7 +11,7 @@ var StyleList = Backbone.Collection.extend({
 	// Adds a new model to the collection (and selects it).
 	addNew: function() {
 		var model = new Style;
-        Styles.add(model).select(model);
+        this.add(model).select(model);
 	},
 
 	// Adds a new model if the collection is empty.
@@ -34,8 +34,8 @@ var StyleList = Backbone.Collection.extend({
 	select: function(model) {
 		if (model.get('selected')) return;
 		var selected = this.selected();
-		if (selected) selected.disable('selected');
-		model.enable('selected');
+		if (selected) selected.set('selected', false);
+		model.set('selected', true);
 	}
 
 });

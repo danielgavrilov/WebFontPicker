@@ -20,7 +20,7 @@ var StyleView = Backbone.View.extend({
 
         this.listenTo(this.model, {
             'change:family': this.renderWeights,
-            'change:selector toggle:active': this._setActive,
+            'change:selector change:active': this._setActive,
             'destroy': this.remove,
             'select': function() {
                 view.$el.addClass('selected');
@@ -112,17 +112,34 @@ var StyleView = Backbone.View.extend({
 
     checkbox: function(prop, element) {
 
-        if (typeof prop !== 'string' || (element && element.checked === undefined)) throw new Error('Invalid value');
+        if (element && element.checked === undefined) throw new Error('Passed element is not a checkbox');
 
         var model = this.model;
+        var enabled = model.enabled[prop];
+        var attr = model.get(prop);
 
-        model.on('toggle:' + prop, function(checked) {
-            element.checked = checked;
-        });
+        if (typeof enabled === 'boolean') {
 
-        $(element).on('change', function() {
-            model.toggle(prop);
-        });
+            model.on('toggle:' + prop, function(checked) {
+                element.checked = checked;
+            });
+
+            $(element).on('change', function() {
+                model.toggle(prop);
+            });
+
+        } else if (typeof attr === 'boolean') {
+            
+            model.on('change:' + prop, function(model, checked) {
+                element.checked = checked;
+            });
+
+            $(element).on('change', function() {
+                attr = !attr;
+                model.set(prop, attr);
+            });
+
+        }
 
         return this;
     },

@@ -16,50 +16,27 @@ var Style = Backbone.Model.extend({
 
         // Properties below control the CSS output.
         // If a property is enabled, the value is applied to the CSS rule.
-
         family: '',
-        familyEnabled: true,
-        
         weight: '',
-        weightEnabled: false,
-
         fontSize: '16px',
-        fontSizeEnabled: false,
-
         fontStyle: '',
-        fontStyleEnabled: false,
-
         color: '#00f',
-        colorEnabled: false,
-
         lineHeight: '1.5',
-        lineHeightEnabled: false,
-
         textAlign: 'left',
-        textAlignEnabled: false,
-
         textTransform: '',
-        textTransformEnabled: false,
-
-        letterSpacing: '0',
-        letterSpacingEnabled: false
-
+        letterSpacing: '0'
     },
 
-    initialize: function() { 
-        this.rule = stylesheet.newRule();
-        this.on('change toggle temporary', this.updateCSS);
-        this.on('toggle:selected', function(value) {
-            var evt = value ? 'select' : 'deselect';
-            this.trigger(evt);
-        });
-        this.on('destroy', function() {
-            this.rule.destroy();
-        });
-    },
-
-    getState: function() {
-        return _.clone(this.attributes);
+    enabled: {
+        family:        true,
+        weight:        false,
+        fontSize:      false,
+        fontStyle:     false,
+        color:         false,
+        lineHeight:    false,
+        textAlign:     false,
+        textTransform: false,
+        letterSpacing: false
     },
 
     css: {
@@ -77,23 +54,27 @@ var Style = Backbone.Model.extend({
 
     temp: {},
 
-    _toggleMap: {
-        selected: 'selected',
-        active: 'active',
-        highlight: 'highlight'
+    initialize: function() { 
+        this.rule = stylesheet.newRule();
+        this.on('change toggle temporary', this.updateCSS);
+        this.on('change:selected', function(model, value) {
+            var evt = value ? 'select' : 'deselect';
+            this.trigger(evt);
+        });
+        this.on('destroy', function() {
+            this.rule.destroy();
+        });
     },
 
-    _toggleProp: function(prop) {
-        return this._toggleMap[prop] || prop + 'Enabled';
+    getState: function() {
+        return _.clone(this.attributes);
     },
 
     _setToggle: function(prop, value) {
-        var property = this._toggleProp(prop);
         var changes = {};
 
-        if (this.get(property) !== value) {
-            this.set(property, value);
-            changes[prop] = value;
+        if (this.enabled[prop] !== value) {
+            changes[prop] = this.enabled[prop] = value;
             this.trigger('toggle:' + prop, value);
             this.trigger('toggle', changes);
         }
@@ -101,10 +82,6 @@ var Style = Backbone.Model.extend({
 
     isActive: function() {
         return !!(this.get('active') && this.get('selector'));
-    },
-
-    propEnabled: function(prop) {
-        return !!this.get(this._toggleProp(prop));
     },
 
     enable: function(prop) {
@@ -118,7 +95,7 @@ var Style = Backbone.Model.extend({
     },
 
     toggle: function(prop) {
-        this.propEnabled(prop) ? this.disable(prop) : this.enable(prop);
+        this.enabled[prop] ? this.disable(prop) : this.enable(prop);
         return this;
     },
 
@@ -168,7 +145,7 @@ var Style = Backbone.Model.extend({
         props.push(state.selector + ' {');
 
         _.forEach(this.css, function(css, prop) {
-            if (style.propEnabled(prop) && state[prop] || temporary[prop]) {
+            if (style.enabled[prop] && state[prop] || temporary[prop]) {
                 var value = temporary[prop] || state[prop];
                 var property = css.split('%value%').join(value);
                 props.push( prefix + property + suffix );
