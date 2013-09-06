@@ -2,39 +2,6 @@
 @import "mixins";
 @import "normalize";
 
-@-webkit-keyframes appear {
-    0% {
-        -webkit-transform: translate3d(400px,0,0);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: translate3d(0,0,0);
-        opacity: 1;
-    }
-}
-
-@-moz-keyframes appear {
-    0% {
-        -moz-transform: translate3d(400px,0,0);
-        opacity: 0;
-    }
-    100% {
-        -moz-transform: translate3d(0,0,0);
-        opacity: 1;
-    }
-}
-
-@keyframes appear {
-    0% {
-        transform: translate3d(400px,0,0);
-        opacity: 0;
-    }
-    100% {
-        transform: translate3d(0,0,0);
-        opacity: 1;
-    }
-}
-
 #font-picker {
     @include default-font;
     font-size: 13px !important;
@@ -53,18 +20,6 @@
                 0 1px 5px rgba(0, 0, 0, 0.15);
     z-index: 99999;
     cursor: default;
-
-    -webkit-animation-name: appear;
-    -webkit-animation-duration: 400ms;
-    -webkit-animation-timing-function: $easing;
-
-    -moz-animation-name: appear;
-    -moz-animation-duration: 400ms;
-    -moz-animation-timing-function: $easing;
-
-    animation-name: appear;
-    animation-duration: 400ms;
-    animation-timing-function: $easing;
 
     -webkit-transition: -webkit-transform 400ms $easing;
     -moz-transition: -moz-transform 400ms $easing;

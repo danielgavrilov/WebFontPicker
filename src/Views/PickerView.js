@@ -4,6 +4,8 @@ var PickerView = Backbone.View.extend({
 
     initialize: function() {
 
+        var picker = this;
+
         // Options
         this.hideable = true;   // Whether the picker is hideable.
         this.hideAfter = 1500;  // How long to wait (in milliseconds) before the picker is hidden.
@@ -23,6 +25,12 @@ var PickerView = Backbone.View.extend({
         this.listenTo(Styles, 'remove', this._onModelRemove); 
         this.attachEvents();
         this.populate();
+
+        // Slides the picker out (it is hidden by default in CSS).
+        // Deferred so that the element is first appended to the body.
+        _.defer(function() {
+            picker.show();
+        });
     },
 
     attachEvents: function() {
