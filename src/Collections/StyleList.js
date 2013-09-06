@@ -3,7 +3,7 @@ var StyleList = Backbone.Collection.extend({
     model: Style,
 
     initialize: function() {
-        _.bind(this, 'addNew');
+        _.bindAll(this, 'addNew');
         this.on('remove', this.addIfEmpty);
         this.addIfEmpty();
     },
