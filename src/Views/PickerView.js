@@ -5,8 +5,10 @@ var PickerView = Backbone.View.extend({
     initialize: function() {
 
         // Options
-        this.hideAfter = 2500;  // How long to wait (in milliseconds) before the picker is hidden.
-        this.visibleLimit = 15; // How much (in px) of the element is visible horizontally when hidden to the side.
+        this.hideable = true;   // Whether the picker is hideable.
+        this.hideAfter = 1500;  // How long to wait (in milliseconds) before the picker is hidden.
+        this.stickOut = 15;     // How much (in px) of the element is visible when hidden to the side.
+        this.mouseOver = false; // Whether the cursor is over the picker.
 
         // Constructing an element from the template
         var element = elementFromHTML(this.template());
@@ -30,7 +32,6 @@ var PickerView = Backbone.View.extend({
         this.$el.on({
             mouseenter: function() {
                 picker.mouseOver = true;
-                picker.$el.off('blur', picker.hide, true);
                 picker.show();
             },
             mouseleave: function() {
@@ -68,7 +69,7 @@ var PickerView = Backbone.View.extend({
     },
 
     // Slides the picker out horizontally. 
-    // `px` (Number) is the distance (in pixels) from the edge of the element to the edge of the window.
+    // `px` (Number) is the distance (in pixels) from the left edge of the element to the edge of the window.
     slideOut: function(px) {
         var x = (!isNaN(px)) ? this.el.offsetWidth - px : 0;
         this.$el.css('transform', 'translate3d(' + x + 'px, 0, 0)');
@@ -77,9 +78,9 @@ var PickerView = Backbone.View.extend({
     // Hides the picker after the specified waiting time.
     hide: function() {
         var picker = this;
-        if (!this.hideTimeout) {
+        if (this.hideable && !this.hideTimeout) {
             this.hideTimeout = setTimeout(function() {
-                picker.slideOut(picker.visibleLimit);
+                picker.slideOut(picker.stickOut);
             }, this.hideAfter);
         }
     },
