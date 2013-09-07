@@ -15,7 +15,8 @@ var StyleView = Backbone.View.extend({
 
         this.fontMenu = new FontMenu({
             model: this.model,
-            parent: this
+            parent: this,
+            element: this.$('.font-menu')[0]
         });
 
         this.listenTo(this.model, {

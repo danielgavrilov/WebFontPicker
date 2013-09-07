@@ -2,15 +2,15 @@ var FontMenu = Backbone.View.extend({
 
     initialize: function(options) {
 
-        this.parent = options.parent;
+        this.parent = options.parent; // Parent view (StyleView).
 
-        this.setElement(this.parent.$('.font-menu')[0]);
+        this.setElement(options.element);
 
         this.isOpen    = false;
-        this.fontLimit = 15;
-        this.list      = [];
-        this.rendered  = [];
-        this.query     = '';
+        this.fontLimit = 15; // Number of fonts shown when initially opened.
+        this.list      = []; // An array of all the family names in the list.
+        this.rendered  = []; // An array of the family names that are *visible* in the list. The rest can be shown by Load More.
+        this.query     = ''; // Family search query.
 
         this.$listWrapper    = this.$('.font-list-wrapper');
         this.$list           = this.$('.font-list');
