@@ -6,7 +6,7 @@ javascript:(function(){
 
     if (WFP.attached || WFP.Picker) return;
 
-    function loadCSS(url) {
+    function loadStylesheet(url) {
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.type = 'text/css';
@@ -21,7 +21,7 @@ javascript:(function(){
         document.head.appendChild(script);
     }
 
-    loadCSS('http://gavrilov.co.uk/wfp/WFP.css');
+    loadStylesheet('http://gavrilov.co.uk/wfp/WFP.css');
     loadScript('http://gavrilov.co.uk/wfp/WFP.full.min.js');
    
     WFP.attached = true;
