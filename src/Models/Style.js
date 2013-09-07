@@ -84,6 +84,10 @@ var Style = Backbone.Model.extend({
         return !!(this.get('active') && this.get('selector'));
     },
 
+    isEnabled: function(prop) {
+        return this.enabled[prop];
+    },
+
     enable: function(prop) {
         this._setToggle(prop, true);
         return this;
