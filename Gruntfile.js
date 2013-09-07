@@ -49,21 +49,21 @@ module.exports = function(grunt) {
                 options: {
                     banner: [
                         '/*!',
-                        ' * Web Font Picker <%= pkg.version %>',
+                        ' * <%= pkg.name %> <%= pkg.version %>',
                         ' * Last updated: <%= grunt.template.today("yyyy-mm-dd") %>',
                         ' * ',
                         ' * (c) 2013 Daniel Gavrilov',
                         ' * MIT License',
                         ' */',
                         '',
-                        '(function(window, document, $, Backbone, undefined) {',
+                        '(function(window, document, $, _, Backbone, undefined) {',
                         '',
                         'var WFP = window.WFP = window.WFP || {};',
                         '',
                         'WFP.VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n'),
-                    footer: '\n})(window, document, jQuery, Backbone);'
+                    footer: '\n})(window, document, jQuery.noConflict(true), _.noConflict(), Backbone.noConflict());'
                 },
                 src: ['<%= jsfiles %>'],
                 dest: 'build/<%= filename %>.js'

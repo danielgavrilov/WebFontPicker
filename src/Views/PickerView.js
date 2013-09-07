@@ -44,7 +44,7 @@ var PickerView = Backbone.View.extend({
             },
             mouseleave: function() {
                 picker.mouseOver = false;
-                if (!document.activeElement || !jQuery.contains(picker.el, document.activeElement)) {
+                if (!document.activeElement || !$.contains(picker.el, document.activeElement)) {
                     picker.hide();
                 }
             },
