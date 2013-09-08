@@ -27,18 +27,6 @@ var Style = Backbone.Model.extend({
         letterSpacing: '0'
     },
 
-    enabled: {
-        family:        true,
-        weight:        false,
-        fontSize:      false,
-        fontStyle:     false,
-        color:         false,
-        lineHeight:    false,
-        textAlign:     false,
-        textTransform: false,
-        letterSpacing: false
-    },
-
     css: {
         family:        'font-family: %value%',
         weight:        'font-weight: %value%',
@@ -52,10 +40,20 @@ var Style = Backbone.Model.extend({
         highlight:     'text-shadow: 0 0 5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(0, 125, 255, 0.85), 0 0 20px #0CF, 0 0 30px #FFF'
     },
 
-    temp: {},
-
     initialize: function() { 
         this.rule = stylesheet.newRule();
+        this.temp = {};
+        this.enabled = {
+            family:        true,
+            weight:        false,
+            fontSize:      false,
+            fontStyle:     false,
+            color:         false,
+            lineHeight:    false,
+            textAlign:     false,
+            textTransform: false,
+            letterSpacing: false
+        },
         this.on('change toggle temporary', this.updateCSS);
         this.on('change:selected', function(model, value) {
             var evt = value ? 'select' : 'deselect';
