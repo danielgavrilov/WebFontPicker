@@ -37,7 +37,7 @@ var Fonts = (function() {
     }
 
     function generateFragment(family) {
-        return family.replace(/ /g, '+') + ':' + fonts.list[family].variants.join(',');
+        return family.replace(/\s+/g, '+') + ':' + fonts.list[family].variants.join(',');
     }
 
     function load(families) {
