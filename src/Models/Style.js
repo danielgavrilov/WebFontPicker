@@ -28,7 +28,7 @@ var Style = Backbone.Model.extend({
     },
 
     css: {
-        family:        'font-family: %value%',
+        family:        'font-family: \'%value%\'',
         weight:        'font-weight: %value%',
         fontSize:      'font-size: %value%',
         fontStyle:     'font-style: %value%',
@@ -140,6 +140,8 @@ var Style = Backbone.Model.extend({
         var state = this.getState();
         var temporary = this.temp;
 
+        if (!state.selector) return;
+
         var prefix = '    ';
         var suffix = (beautify) ? ';' : ' !important;';
         var props = [];
@@ -156,7 +158,13 @@ var Style = Backbone.Model.extend({
 
         props.push('}');
 
-        return props.join('\n');
+        var rule = props.join('\n');
+
+        if (!state.active) {
+            rule = '/*' + rule + '*/';
+        }
+
+        return rule;
     },
 
     updateCSS: function() {

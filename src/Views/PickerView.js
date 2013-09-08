@@ -98,6 +98,14 @@ var PickerView = Backbone.View.extend({
         clearTimeout(this.hideTimeout);
         this.hideTimeout = null;
         this.slideOut();
+    },
+
+    getCSS: function() {
+        var rules = Styles.map(function(model) {
+            return model.generateCSS(true);
+        });
+        rules = _.compact(rules); // remove falsy values
+        return rules.join('\n\n');
     }
 
 });
