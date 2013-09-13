@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         jsfiles: [
             'src/Helpers.js',
             'src/Templates.js',
-            'src/Interfaces/*.js',
+            'src/Modules/*.js',
             'src/Models/*.js',
             'src/Collections/*.js',
             'src/Views/*.js',

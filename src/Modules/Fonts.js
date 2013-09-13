@@ -36,8 +36,20 @@ var Fonts = (function() {
         deferred.resolve(fonts.list);
     }
 
-    function generateFragment(family) {
-        return family.replace(/\s+/g, '+') + ':' + fonts.list[family].variants.join(',');
+    function generateFragment(fontObj) {
+        return fontObj.family.replace(/\s+/g, '+') + 
+               ':' + fontObj.variants.join(',');
+    }
+
+    function generateURL(families) {
+
+        var fragments = _.map(families, function(family) {
+            return generateFragment(fonts.list[family]);
+        });
+
+        var url = fontsAPI + fragments.join('|');
+
+        return url;
     }
 
     function load(families) {
@@ -48,15 +60,8 @@ var Fonts = (function() {
 
         if (!families.length) return;
 
-        var fragments = [];
-
-        _.forEach(families, function(family) {
-            fonts.loaded.push(family);
-            fragments.push(generateFragment(family));
-        });
-
-        var url = fontsAPI + fragments.join('|');
-        loadStylesheet(url);
+        fonts.loaded = fonts.loaded.concat(families);
+        loadStylesheet(generateURL(families));
     }
 
     function search(query) {
@@ -96,6 +101,8 @@ var Fonts = (function() {
 
         return deferred;
     };
+
+    fonts.generateURL = generateURL;
 
     return fonts;
 
