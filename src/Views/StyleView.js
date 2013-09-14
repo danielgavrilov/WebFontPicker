@@ -161,11 +161,14 @@ var StyleView = Backbone.View.extend({
     },
 
     _setActive: function() {
-        if (this.model.isActive()) {
-            this.$el.removeClass('inactive');
-        } else {
-            this.$el.addClass('inactive');
+
+        var active = this.model.isActive();
+
+        if (active !== !this._hasClass) {
+            this.el.classList.toggle('inactive');
+            this._hasClass = !this._hasClass;
         }
+
     }
 
 });
