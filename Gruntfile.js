@@ -6,24 +6,26 @@ module.exports = function(grunt) {
 
         filename: 'WFP',
 
-        dependencies: [
-            'vendor/jquery-2.0.3.js',
-            'vendor/underscore.js',
-            'vendor/backbone.js'
-        ],
-
-        jsfiles: [
-            'src/Helpers.js',
-            'src/Templates.js',
-            'src/Modules/*.js',
-            'src/Models/*.js',
-            'src/Collections/*.js',
-            'src/Views/*.js',
-            'src/Views/**/*.js',
-            'src/Initialize.js'
-        ],
-
-        sassfiles: ['sass/main.scss'],
+        paths: {
+            src: [
+                'src/Setup.js',
+                'src/Helpers.js',            
+                'src/Templates.js',
+                'src/Modules/*.js',
+                'src/Models/*.js',
+                'src/Collections/*.js',
+                'src/Views/*.js',
+                'src/Views/**/*.js',
+                'src/Initialize.js'
+            ],
+            vendor: [
+                'vendor/jquery-2.0.3.js',
+                'vendor/underscore.js',
+                'vendor/backbone.js'
+            ],
+            sass: ['sass/main.scss'],
+            templates: ['src/Templates/*.tmpl']
+        },
 
         jst: {
             compile: {
@@ -39,14 +41,35 @@ module.exports = function(grunt) {
                     prettify: true
                 },
                 files: {
-                    'src/Templates.js': ['src/Templates/*.tmpl']
+                    'src/Templates.js': ['<%= paths.templates %>']
                 }
             }
         },
 
-        concat: {
-            dist: {
+        uglify: {
+
+            // Does not include dependencies.
+            // Only used for development.
+            dev: {
                 options: {
+                    preserveComments: 'all',
+                    mangle: false,
+                    compress: false,
+                    sourceMap: 'build/<%= filename %>.map',
+                    sourceMapRoot: '/',
+                    sourceMappingURL: 'WFP.map',
+                },
+                files: {
+                    'build/<%= filename %>.js': ['<%= paths.src %>'],
+                }
+            },
+
+            // Contains all dependencies.
+            full: {
+                options: {
+                    preserveComments: 'some',
+                    mangle: true,
+                    compress: true,
                     banner: [
                         '/*!',
                         ' * <%= pkg.name %> <%= pkg.version %>',
@@ -57,33 +80,12 @@ module.exports = function(grunt) {
                         ' */',
                         '',
                         '(function(window, document, $, _, Backbone, undefined) {',
-                        '',
-                        'var WFP = window.WFP = window.WFP || {};',
-                        '',
-                        'WFP.VERSION = "<%= pkg.version %>";',
                         '\n'
                     ].join('\n'),
                     footer: '\n})(window, document, jQuery.noConflict(true), _.noConflict(), Backbone.noConflict());'
                 },
-                src: ['<%= jsfiles %>'],
-                dest: 'build/<%= filename %>.js'
-            }
-        },
-
-        uglify: {
-            options: {
-                preserveComments: 'some',
-                mangle: true,
-                compress: true
-            },
-            dist: {
                 files: {
-                    'build/<%= filename %>.min.js': ['<%= concat.dist.dest %>'],
-                }
-            },
-            full: {
-                files: {
-                    'build/<%= filename %>.full.min.js': ['<%= dependencies %>', '<%= concat.dist.dest %>'],
+                    'build/<%= filename %>.full.min.js': ['<%= paths.vendor %>', 'build/<%= filename %>.js'],
                 }
             }
         },
@@ -95,15 +97,15 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'build/<%= filename %>.css': ['<%= sassfiles %>']
+                    'build/<%= filename %>.css': ['<%= paths.sass %>']
                 }
             }
         },
 
         watch: {
             all: {
-                files: ['Gruntfile.js', '<%= jsfiles %>'],
-                tasks: ['concat']
+                files: ['Gruntfile.js', '<%= paths.src %>'],
+                tasks: ['uglify:dev']
             }
         }
     });
@@ -114,6 +116,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['jst', 'concat', 'uglify:dist']);
-    grunt.registerTask('release', ['jst', 'concat', 'uglify:full']);
+    grunt.registerTask('default', ['jst', 'uglify:dev']);
+    grunt.registerTask('release', ['jst', 'uglify:dev', 'uglify:full']);
 };
