@@ -147,7 +147,6 @@ var Style = Backbone.Model.extend({
         var props = [];
 
         props.push(state.selector + ' {');
-
         _.forEach(this.css, function(css, prop) {
             if (style.enabled[prop] && state[prop] || temporary[prop]) {
                 var value = temporary[prop] || state[prop];
@@ -155,9 +154,8 @@ var Style = Backbone.Model.extend({
                 props.push( prefix + property + suffix );
             }
         });
-
         props.push('}');
-
+        
         var rule = props.join('\n');
 
         if (!state.active) {
