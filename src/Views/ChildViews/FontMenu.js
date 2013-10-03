@@ -18,7 +18,7 @@ var FontMenu = Backbone.View.extend({
         this.$loadMore       = this.$('.load-more');
         this.$currentWrapper = this.$('.current-wrapper');
 
-        _.bindAll(this, '_onload', 'close', 'maxHeight');
+        _.bindAll(this, '_onload', 'close', 'maxHeight', '_searchDone');
 
         Fonts.onload(this._onload);
     },
@@ -47,7 +47,7 @@ var FontMenu = Backbone.View.extend({
                     menu.model.set({ family: family });
                 }
                 if (tagName(event.target) === 'b') {
-                    menu.model.set({ weight: event.target.dataset.weight })
+                    menu.model.set({ weight: event.target.dataset.weight });
                 }
             }
         });
@@ -110,10 +110,10 @@ var FontMenu = Backbone.View.extend({
         var current = (nth > -1) ? this.$list[0].children[nth] : undefined;
         var prev = this.$highlighted && this.$highlighted[0];
 
-        if (prev === current) return;
-        
-        prev && $(prev).removeClass('current');
-        this.$highlighted = current && $(current).addClass('current');
+        if (prev !== current) {
+            prev && $(prev).removeClass('current');
+            this.$highlighted = current && $(current).addClass('current');
+        }
     },
 
     updateCurrent: function() {
@@ -169,8 +169,6 @@ var FontMenu = Backbone.View.extend({
 
     search: function(query) {
 
-        var menu = this;
-
         this.query = query;
         this.$listWrapper[0].scrollTop = 0;
 
@@ -181,16 +179,17 @@ var FontMenu = Backbone.View.extend({
             return;
         }
 
-        Fonts.search(query).done(function(results) {
-            if (results.length === 0) {
-                menu.$el.addClass('no-results');
-            } else { 
-                menu.$el.removeClass('no-results');
-                menu.list = results;
-                menu.updateList();
-            }
-        });
+        Fonts.search(query).done(this._searchDone);
+    },
 
+    _searchDone: function(results) {
+        if (results.length === 0) {
+            this.$el.addClass('no-results');
+        } else { 
+            this.$el.removeClass('no-results');
+            this.list = results;
+            this.updateList();
+        }
     },
 
     maxHeight: function() {
