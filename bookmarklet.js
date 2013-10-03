@@ -2,6 +2,8 @@ javascript:(function(){
 
     var WFP = window.WFP = window.WFP || {};
 
+    WFP.bookmarklet = 1;
+
     WFP.Picker && WFP.Picker.show();
 
     if (WFP.attached || WFP.Picker) return;
