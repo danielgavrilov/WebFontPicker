@@ -6,11 +6,11 @@ var Fonts = (function() {
         fontsAPI = '//fonts.googleapis.com/css?family=',
         letter   = /[a-zA-Z]/;
 
-    var deferred = $.Deferred();
+    var deferred = $.Deferred(); // Resolved once the list of fonts is received from the Google Fonts API.
 
-    fonts.list     = {}; // Object of <family name>:<fontObj> available
-    fonts.families = []; // Array of family names available
-    fonts.loaded   = []; // Array of family names loaded
+    fonts.list     = {}; // Object of <family name>:<fontObj> available.
+    fonts.families = []; // Family names available.
+    fonts.loaded   = []; // Family names loaded.
     fonts.onload   = deferred.done;
 
     $.ajax({

@@ -23,7 +23,8 @@ var PickerView = Backbone.View.extend({
         // Attaching events
         this.listenTo(Styles, 'add', this.add);
         this.listenTo(Styles, 'remove', this._onModelRemove); 
-        this.attachEvents();
+        this.attachDOMEvents();
+
         this.populate();
 
         // Slides the picker out (it is hidden by default in CSS).
@@ -33,7 +34,7 @@ var PickerView = Backbone.View.extend({
         });
     },
 
-    attachEvents: function() {
+    attachDOMEvents: function() {
 
         var picker = this;
 
@@ -59,6 +60,7 @@ var PickerView = Backbone.View.extend({
         this.$add.on('click', Styles.addNew);
     },
 
+    // Populates the list of styles.
     populate: function() {
         var picker = this;
         Styles.forEach(function(model) {
@@ -77,13 +79,13 @@ var PickerView = Backbone.View.extend({
     },
 
     // Slides the picker out horizontally. 
-    // `px` (Number) is the distance (in pixels) from the left edge of the element to the edge of the window.
+    // `px` is the distance (in pixels) from the left edge of the element to the right edge of the window.
     slideOut: function(px) {
         var x = (!isNaN(px)) ? this.el.offsetWidth - px : 0;
         this.$el.css('transform', 'translate3d(' + x + 'px, 0, 0)');
     },
 
-    // Hides the picker after the specified waiting time.
+    // Hides the picker after the specified waiting time in the `hideAfter` property.
     hide: function() {
         var picker = this;
         if (this.hideable && !this.hideTimeout) {
@@ -100,6 +102,8 @@ var PickerView = Backbone.View.extend({
         this.slideOut();
     },
 
+    // Returns all the rules as a string. Used for exporting the CSS.
+    // Non-active rules will be included but /* commented out */.
     getCSS: function() {
         var rules = Styles.map(function(model) {
             return model.generateCSS(true);

@@ -2,16 +2,18 @@ var FontMenu = Backbone.View.extend({
 
     initialize: function(options) {
 
-        this.parent = options.parent; // Parent view (StyleView).
-
+        // The element is already created in the StyleView. Just needs to be set.
+        this.parent = options.parent;
         this.setElement(options.element);
 
-        this.isOpen    = false;
-        this.fontLimit = 15; // Number of fonts shown when initially opened.
-        this.list      = []; // An array of all the family names in the list.
-        this.rendered  = []; // An array of the family names that are *visible* in the list. The rest can be shown by Load More.
-        this.query     = ''; // Family search query.
+        // Do not manually change these.
+        this.isOpen    = false; // Whether the menu is open.
+        this.fontLimit = 15; // Number of fonts shown when initially opened. Also number of additionaly loaded fonts by each "Load more".
+        this.list      = []; // All the family names in the list.
+        this.rendered  = []; // Family names that are *rendered* in the DOM element. The rest can be shown by Load More.
+        this.query     = ''; // Font search query. Do not modify, use the `search` method to search.
 
+        // Caching selectors
         this.$listWrapper    = this.$('.font-list-wrapper');
         this.$list           = this.$('.font-list');
         this.$search         = this.$('.search');
@@ -23,6 +25,7 @@ var FontMenu = Backbone.View.extend({
         Fonts.onload(this._onload);
     },
 
+    // Only executed once the Fonts module is ready.
     _onload: function() {
         this.listenTo(this.model, 'change:family', this.updateCurrent);
         this.updateList();
@@ -80,6 +83,7 @@ var FontMenu = Backbone.View.extend({
         });
     },
 
+    // Opens the menu.
     open: function() {
 
         this.isOpen = true;
@@ -92,6 +96,7 @@ var FontMenu = Backbone.View.extend({
         $(window).on('resize', this.maxHeight);
     },
 
+    // Closes the menu.
     close: function() {
 
         if (!this.isOpen) return;
@@ -104,6 +109,7 @@ var FontMenu = Backbone.View.extend({
         $(window).off('resize', this.maxHeight);
     },
 
+    // Highlights the current font, if it exists in the rendered list.
     highlightCurrent: function() {
         var family = this.model.get('family');
         var nth = this.rendered.indexOf(family);
@@ -116,12 +122,14 @@ var FontMenu = Backbone.View.extend({
         }
     },
 
+    // Builds an element for the current font that serves as a placeholder to open the menu.
     updateCurrent: function() {
         var family = this.model.get('family');
         var element = this.build([family]);
         this.$currentWrapper.empty().append(element);
     },
 
+    // Given an array of families, it builds their DOM elements and returns them in a fragment.
     build: function(families) {
         Fonts.load(families);
         var fragment = document.createDocumentFragment();
@@ -131,33 +139,40 @@ var FontMenu = Backbone.View.extend({
         return fragment;
     },
 
+    // Renders the list of fonts, taking care of necessary destruction and reconstruction
     updateList: function(loadMore) {
 
         var toRender = [];
 
+        // If the list is empty, populate it with the default family names.
         if (!this.query && this.list.length === 0) {
             this.list = _.clone(Fonts.families);
         }
 
+        // If what is rendered does not match the beginning of the list, the rendered list is emptied.
         if (!startsWith(this.list, this.rendered)) {
             this.$list.empty();
             this.rendered = [];
         }
 
+        // If the font limit is not reached, render more fonts!
         if (this.rendered.length < this.fontLimit) {
             toRender = _.difference(this.list.slice(0, this.fontLimit), this.rendered);
         }
 
+        // If loadMore, then load more.
         if (loadMore) {
             toRender = _.difference(this.list, this.rendered).slice(0, this.fontLimit);
         }
 
+        // If toRender is not empty, build and append the fonts.
         if (toRender.length) {
             var fragment = this.build(toRender);
             this.$list.append(fragment);
             this.rendered = this.rendered.concat(toRender);
         }
 
+        // If both lists are the same length, all the fonts must be loaded.
         if (this.rendered.length >= this.list.length) {
             this.$el.addClass('all-loaded');
         } else {
@@ -167,6 +182,7 @@ var FontMenu = Backbone.View.extend({
         this.highlightCurrent();
     },
 
+    // Searches all available fonts.
     search: function(query) {
 
         this.query = query;
@@ -192,6 +208,7 @@ var FontMenu = Backbone.View.extend({
         }
     },
 
+    // Sets the CSS `max-height` property of the list. 
     maxHeight: function() {
         var w = window;
         var p = Picker.el;

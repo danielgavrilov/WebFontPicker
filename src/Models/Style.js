@@ -40,9 +40,15 @@ var Style = Backbone.Model.extend({
         highlight:     'text-shadow: 0 0 5px rgba(255, 255, 255, 0.85), 0 0 10px rgba(0, 125, 255, 0.85), 0 0 20px #0CF, 0 0 30px #FFF'
     },
 
-    initialize: function() { 
+    initialize: function() {
+
         this.rule = stylesheet.newRule();
+
+        // Temporary properties are saved here.
+        // They override any properties and are applied even if the property is disabled.
         this.temp = {};
+
+        // Enabled properties.
         this.enabled = {
             family:        true,
             weight:        false,
@@ -54,28 +60,22 @@ var Style = Backbone.Model.extend({
             textTransform: false,
             letterSpacing: false
         },
+
         this.on('change toggle temporary', this.updateCSS);
+
+        // Fires `select` and `deselect` events when a style is selected/deselected.
         this.on('change:selected', function(model, value) {
             var evt = value ? 'select' : 'deselect';
             this.trigger(evt);
         });
+
         this.on('destroy', function() {
-            this.rule.destroy();
+            this.rule.destroy(); // Removes the CSS rule.
         });
     },
 
     getState: function() {
         return _.clone(this.attributes);
-    },
-
-    _setToggle: function(prop, value) {
-        var changes = {};
-
-        if (this.enabled[prop] !== value) {
-            changes[prop] = this.enabled[prop] = value;
-            this.trigger('toggle:' + prop, value);
-            this.trigger('toggle', changes);
-        }
     },
 
     isActive: function() {
@@ -84,6 +84,18 @@ var Style = Backbone.Model.extend({
 
     isEnabled: function(prop) {
         return this.enabled[prop];
+    },
+
+    // Used for enabling/disabling properties, fires all the necessary events and stuff.
+    // Use the `enable`, `disable` and `toggle` methods to enable/disable properties.
+    _setToggle: function(prop, value) {
+        var changes = {};
+
+        if (this.enabled[prop] !== value) {
+            changes[prop] = this.enabled[prop] = value;
+            this.trigger('toggle:' + prop, value);
+            this.trigger('toggle', changes);
+        }
     },
 
     enable: function(prop) {
@@ -134,6 +146,8 @@ var Style = Backbone.Model.extend({
         return this;
     },
     
+    // Generates the CSS rule, as a string. The optional `beautify` parameter
+    // is only used to export CSS, by the user.
     generateCSS: function(beautify) {
 
         var style = this;
