@@ -56,7 +56,7 @@ module.exports = function(grunt) {
                     mangle: false,
                     compress: false,
                     sourceMap: 'build/<%= filename %>.map',
-                    sourceMapRoot: '/',
+                    sourceMapRoot: '../',
                     sourceMappingURL: 'WFP.map',
                 },
                 files: {
