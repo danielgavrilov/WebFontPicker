@@ -2,8 +2,8 @@
   "name": "WebFontPicker",
   "description": "A bookmarklet that helps designers preview Web Fonts on any website.",
   "keywords": [
-    "google",
     "font",
+    "webfont",
     "picker",
     "viewer"
   ],
