@@ -20,6 +20,7 @@ module.exports = function(grunt) {
             ],
             vendor: [
                 'vendor/jquery-2.0.3.js',
+                'vendor/jquery.animate-colors.js',
                 'vendor/underscore.js',
                 'vendor/backbone.js'
             ],

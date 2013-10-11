@@ -5,33 +5,81 @@ var StyleView = Backbone.View.extend({
     initialize: function() {
 
         var view = this;
-        var element = elementFromHTML(this.template(this.model.getState()));
 
+        // Constructing an element from the template
+        var element = elementFromHTML(this.template(this.model.getState()));
         this.setElement(element);
 
+        // Caching selectors
+        this.$selectorWrapper = this.$('.selector-wrapper');
         this.$selector = this.$('.selector');
         this.$weights  = this.$('.select-weight');
         this.$destroy  = this.$('.destroy');
 
+        // Font menu has a separate view.
         this.fontMenu = new FontMenu({
             model: this.model,
             parent: this,
             element: this.$('.font-menu')[0]
         });
 
+        // Attaching events
         this.listenTo(this.model, {
             'change:family': this.renderWeights,
             'change:selector change:active': this._setActive,
-            'destroy': this.remove,
+            'destroy': function() {
+                view.$el.animate({
+                    height: 0,
+                    opacity: 0
+                }, {
+                    duration: 150,
+                    easing: 'easeOutCubic',
+                    complete: function() {
+                        view.remove();
+                    }
+                });
+            },
             'select': function() {
-                view.$el.addClass('selected');
+                var $el = view.$el;
+                var initialHeight = $el.outerHeight();
+                $el.addClass('selected');
+                var finalHeight = $el.outerHeight();
+                $el.css('height', initialHeight);
+
+                $el.animate({
+                    height: finalHeight
+                }, {
+                    duration: 150,
+                    easing: 'easeOutCubic',
+                    complete: function() {
+                        $(this).css('height', '');
+                    }
+                });
             },
             'deselect': function() {
-                view.$el.removeClass('selected');
+                var $el = view.$el;
+                var initialHeight = $el.height();
+                var finalHeight = view.$selectorWrapper.outerHeight();
+
+                $el.animate({
+                    height: finalHeight,
+                    backgroundColor: 'rgba(255,255,255,0)'
+                }, {
+                    duration: 150,
+                    easing: 'easeOutCubic',
+                    complete: function() {
+                        $(this).removeClass('selected')
+                               .css('height', '')
+                               .css('backgroundColor', '');
+                    }
+                });
+
                 view.$selector.blur();
             }
         });
+        this.attachDOMEvents();
 
+        // If this is the only style in the list, hide the Delete button.
         if (Styles.length === 1) {
             _.defer(function() {
                 view.$destroy.addClass('disabled');
@@ -48,10 +96,9 @@ var StyleView = Backbone.View.extend({
             .checkbox('lineHeight', this.$('.toggle-line-height')[0]);
 
         this._setActive();
-        this.attachEvents();
     },
 
-    attachEvents: function() {
+    attachDOMEvents: function() {
 
         var view = this;
 
@@ -111,6 +158,8 @@ var StyleView = Backbone.View.extend({
         });
     },
 
+    // Given a model property and a DOM element, it attaches both a listener on the element 
+    // and the property, so that when one changes the other is updated accordingly.
     checkbox: function(prop, element) {
 
         if (element && element.checked === undefined) throw new Error('Passed element is not a checkbox');
@@ -145,6 +194,7 @@ var StyleView = Backbone.View.extend({
         return this;
     },
 
+    // Updates the list of available weights. Hopefully will move it in a separate view one day.
     renderWeights: function() {
 
         var family = this.model.get('family');
@@ -160,13 +210,15 @@ var StyleView = Backbone.View.extend({
         return this;
     },
 
+    // Simply adds a class to the parent element if the style is not active.
+    // A bit overcomplicated for optimisation purposes.
     _setActive: function() {
 
         var active = this.model.isActive();
 
-        if (active !== !this._hasClass) {
+        if (active === !!this._hasInactiveClass) {
             this.el.classList.toggle('inactive');
-            this._hasClass = !this._hasClass;
+            this._hasInactiveClass = !this._hasInactiveClass;
         }
 
     }

@@ -239,11 +239,13 @@
                 background: #eee;
             }
         }
+        .selected .selector:hover {
+            background: white;
+        }
 
 
     .selected .selector {
         color: #111;
-        background: white;
         border-bottom: 1px solid $separator-color;
         cursor: text !important;
     }
