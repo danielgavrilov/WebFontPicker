@@ -105,3 +105,9 @@ function getFamily(element, parent) {
 
     return null;
 }
+
+// Adds quotes to the passed string if it contains any whitespace characters.
+function quotes(family) {
+    var whitespace = /^[^'"].*\s+.*[^'"]$/;
+    return family.search(whitespace) > -1 ? "'" + family + "'" : family;
+}

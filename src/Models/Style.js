@@ -28,7 +28,7 @@ var Style = Backbone.Model.extend({
     },
 
     css: {
-        family:        'font-family: \'%value%\'',
+        family:        'font-family: %value%',
         weight:        'font-weight: %value%',
         fontSize:      'font-size: %value%',
         fontStyle:     'font-style: %value%',
@@ -44,10 +44,6 @@ var Style = Backbone.Model.extend({
 
         this.rule = stylesheet.newRule();
 
-        // Temporary properties are saved here.
-        // They override any properties and are applied even if the property is disabled.
-        this.temp = {};
-
         // Enabled properties.
         this.enabled = {
             family:        true,
@@ -60,6 +56,10 @@ var Style = Backbone.Model.extend({
             textTransform: false,
             letterSpacing: false
         },
+
+        // Temporary properties are saved here.
+        // They override any properties and are applied even if the property is disabled.
+        this.temp = {};
 
         this.on('change toggle temporary', this.updateCSS);
 
@@ -162,8 +162,11 @@ var Style = Backbone.Model.extend({
 
         props.push(state.selector + ' {');
         _.forEach(this.css, function(css, prop) {
-            if (style.enabled[prop] && state[prop] || temporary[prop]) {
+            if ((style.enabled[prop] && state[prop]) || temporary[prop]) {
                 var value = temporary[prop] || state[prop];
+                if (prop === 'family') { 
+                    value = quotes(value); 
+                }
                 var property = css.split('%value%').join(value);
                 props.push( prefix + property + suffix );
             }
