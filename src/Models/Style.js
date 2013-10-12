@@ -8,9 +8,6 @@ var Style = Backbone.Model.extend({
         // Apply CSS rule.
         active: true,
 
-        // Highlight selected elements.
-        highlight: false,
-
         // Selector used in CSS rule.
         selector: '',
 
@@ -54,7 +51,8 @@ var Style = Backbone.Model.extend({
             lineHeight:    false,
             textAlign:     false,
             textTransform: false,
-            letterSpacing: false
+            letterSpacing: false,
+            highlight:     false
         },
 
         // Temporary properties are saved here.
@@ -162,7 +160,7 @@ var Style = Backbone.Model.extend({
 
         props.push(state.selector + ' {');
         _.forEach(this.css, function(css, prop) {
-            if ((style.enabled[prop] && state[prop]) || temporary[prop]) {
+            if ((style.enabled[prop] && state[prop] !== '') || temporary[prop]) {
                 var value = temporary[prop] || state[prop];
                 if (prop === 'family') { 
                     value = quotes(value); 

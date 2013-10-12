@@ -32,7 +32,7 @@ var StyleView = Backbone.View.extend({
                     height: 0,
                     opacity: 0
                 }, {
-                    duration: 150,
+                    duration: 180,
                     easing: 'easeOutCubic',
                     complete: function() {
                         view.remove();
@@ -49,7 +49,7 @@ var StyleView = Backbone.View.extend({
                 $el.animate({
                     height: finalHeight
                 }, {
-                    duration: 150,
+                    duration: 180,
                     easing: 'easeOutCubic',
                     complete: function() {
                         $(this).css('height', '');
@@ -65,7 +65,7 @@ var StyleView = Backbone.View.extend({
                     height: finalHeight,
                     backgroundColor: 'rgba(255,255,255,0)'
                 }, {
-                    duration: 150,
+                    duration: 180,
                     easing: 'easeOutCubic',
                     complete: function() {
                         $(this).removeClass('selected')
@@ -113,10 +113,10 @@ var StyleView = Backbone.View.extend({
                 }
             },
             mouseover: function() {
-                view.model.setTemp({ highlight: true });
+                view.model.enable('highlight');
             },
             mouseout: function() {
-                view.model.unsetTemp('highlight');
+                view.model.disable('highlight');
             },
             input: function(event) {
                 view.model.set({ selector: event.target.value.trim() });
