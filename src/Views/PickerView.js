@@ -9,7 +9,7 @@ var PickerView = Backbone.View.extend({
         // Options
         this.hideable = true;   // Whether the picker is hideable.
         this.hideAfter = 1500;  // How long to wait (in milliseconds) before the picker is hidden.
-        this.stickOut = 15;     // How much (in px) of the element is visible when hidden to the side.
+        this.stickOut = 18;     // How much (in px) of the element is visible when hidden to the side.
         this.mouseOver = false; // Whether the cursor is over the picker.
 
         // Constructing an element from the template
