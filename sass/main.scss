@@ -252,10 +252,8 @@
 
     .selected {
         background: white;
-        border-bottom: 1px solid $separator-color;
-        margin-top: -1px;
-        border-top: 1px solid #b7b7b7;
         border-bottom: 1px solid #b7b7b7;
+        box-shadow: 0 -1px 0 #b7b7b7;
     }
 
     &.font-menu-open {
