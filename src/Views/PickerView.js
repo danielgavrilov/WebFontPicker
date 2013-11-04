@@ -18,7 +18,7 @@ var PickerView = Backbone.View.extend({
 
         // Caching selectors
         this.$list = this.$('#font-picker-list');
-        this.$add  = this.$('.add-style');
+        this.$add = this.$('.add-style');
 
         // Attaching events
         this.listenTo(Styles, 'add', this.add);

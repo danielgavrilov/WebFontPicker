@@ -13,8 +13,8 @@ var StyleView = Backbone.View.extend({
         // Caching selectors
         this.$selectorWrapper = this.$('.selector-wrapper');
         this.$selector = this.$('.selector');
-        this.$weights  = this.$('.select-weight');
-        this.$destroy  = this.$('.destroy');
+        this.$weights = this.$('.select-weight');
+        this.$destroy = this.$('.destroy');
 
         // Font menu has a separate view.
         this.fontMenu = new FontMenu({
@@ -42,10 +42,9 @@ var StyleView = Backbone.View.extend({
             'select': function() {
                 var $el = view.$el;
                 var initialHeight = $el.outerHeight();
-                $el.addClass('selected');
-                var finalHeight = $el.outerHeight();
+                var finalHeight = $el.addClass('selected').outerHeight();
+                
                 $el.css('height', initialHeight);
-
                 $el.animate({
                     height: finalHeight
                 }, {
@@ -58,9 +57,9 @@ var StyleView = Backbone.View.extend({
             },
             'deselect': function() {
                 var $el = view.$el;
-                var initialHeight = $el.height();
+                var initialHeight = $el.outerHeight();
                 var finalHeight = view.$selectorWrapper.outerHeight();
-
+                
                 $el.animate({
                     height: finalHeight,
                     backgroundColor: 'rgba(255,255,255,0)'
@@ -69,14 +68,15 @@ var StyleView = Backbone.View.extend({
                     easing: 'easeOutCubic',
                     complete: function() {
                         $(this).removeClass('selected')
-                               .css('height', '')
-                               .css('backgroundColor', '');
+                            .css('height', '')
+                            .css('backgroundColor', '');
                     }
                 });
 
                 view.$selector.blur();
             }
         });
+
         this.attachDOMEvents();
 
         // If this is the only style in the list, hide the Delete button.

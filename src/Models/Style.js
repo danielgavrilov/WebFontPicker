@@ -144,8 +144,8 @@ var Style = Backbone.Model.extend({
         return this;
     },
     
-    // Generates the CSS rule, as a string. The optional `beautify` parameter
-    // is only used to export CSS, by the user.
+    // Generates the CSS rule as a string. The optional `beautify` parameter
+    // is used for exporting nicely-formatted CSS.
     generateCSS: function(beautify) {
 
         var style = this;

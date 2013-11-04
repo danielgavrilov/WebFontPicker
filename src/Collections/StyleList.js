@@ -10,7 +10,7 @@ var StyleList = Backbone.Collection.extend({
 
     // Adds a new blank model to the collection (and selects it).
     addNew: function() {
-        var model = new Style;
+        var model = new this.model;
         this.add(model).select(model);
     },
 

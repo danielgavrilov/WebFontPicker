@@ -6,18 +6,17 @@ var FontMenu = Backbone.View.extend({
         this.parent = options.parent;
         this.setElement(options.element);
 
-        // Do not manually change these.
-        this.isOpen    = false; // Whether the menu is open.
+        this.isOpen = false; // Whether the menu is open.
         this.fontLimit = 15; // Number of fonts shown when initially opened. Also number of additionaly loaded fonts by each "Load more".
-        this.list      = []; // All the family names in the list.
-        this.rendered  = []; // Family names that are *rendered* in the DOM element. The rest can be shown by Load More.
-        this.query     = ''; // Font search query. Do not modify, use the `search` method to search.
+        this.list = [];      // All the family names in the list.
+        this.rendered = [];  // Family names that are *rendered* in the DOM element. The rest can be shown by Load More.
+        this.query = '';     // Font search query. Do not modify, use the `search` method to search.
 
         // Caching selectors
-        this.$listWrapper    = this.$('.font-list-wrapper');
-        this.$list           = this.$('.font-list');
-        this.$search         = this.$('.search');
-        this.$loadMore       = this.$('.load-more');
+        this.$listWrapper = this.$('.font-list-wrapper');
+        this.$list = this.$('.font-list');
+        this.$search = this.$('.search');
+        this.$loadMore = this.$('.load-more');
         this.$currentWrapper = this.$('.current-wrapper');
 
         _.bindAll(this, '_onload', 'close', 'maxHeight', '_searchDone');
@@ -29,10 +28,10 @@ var FontMenu = Backbone.View.extend({
     _onload: function() {
         this.listenTo(this.model, 'change:family', this.updateCurrent);
         this.updateList();
-        this.attachEvents();
+        this.attachDOMEvents();
     },
 
-    attachEvents: function() {
+    attachDOMEvents: function() {
 
         var menu = this;
 
@@ -165,7 +164,7 @@ var FontMenu = Backbone.View.extend({
             toRender = _.difference(this.list, this.rendered).slice(0, this.fontLimit);
         }
 
-        // If toRender is not empty, build and append the fonts.
+        // If toRender is not empty, build the list elements and append them to the current list.
         if (toRender.length) {
             var fragment = this.build(toRender);
             this.$list.append(fragment);
