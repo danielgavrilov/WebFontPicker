@@ -144,15 +144,15 @@ var StyleView = Backbone.View.extend({
             view.model.destroy();
         });
 
-        this.$('.change-color').on('input', function() {
+        this.$('.change-color').on('input', function(event) {
             view.model.set({ color: event.target.value.toString() });
             view.model.enable('color');
         });
-        this.$('.change-font-size').on('input', function() {
+        this.$('.change-font-size').on('input', function(event) {
             view.model.set({ fontSize: event.target.value.toString() + 'px' });
             view.model.enable('fontSize');
         });
-        this.$('.change-line-height').on('input', function() {
+        this.$('.change-line-height').on('input', function(event) {
             view.model.set({ lineHeight: event.target.value.toString() });
             view.model.enable('lineHeight');
         });
