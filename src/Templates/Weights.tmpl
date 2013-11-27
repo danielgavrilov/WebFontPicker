@@ -1,4 +1,4 @@
 <% _.forEach(obj.weights, function(weight) { %><!--
 --><label><input data-weight="<%= weight %>" class="change-weight" type="radio" name="weight"<% if (weight == obj.selected) { %> checked<% } %>><!--
---><label data-weight="<%= weight %>" class="preview-weight" style="font-weight: <%= weight %>"><%= weight %></label></label><!--
+--><span data-weight="<%= weight %>" class="preview-weight" style="font-weight: <%= weight %>"><%= weight %></span></label><!--
 --><% }); %>
