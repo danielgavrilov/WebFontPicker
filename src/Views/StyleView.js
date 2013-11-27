@@ -148,12 +148,25 @@ var StyleView = Backbone.View.extend({
             view.model.set({ color: event.target.value.toString() });
             view.model.enable('color');
         });
-        this.$('.change-font-size').on('input', function(event) {
-            view.model.set({ fontSize: event.target.value.toString() + 'px' });
+
+
+        Adjustable(this.$('.change-font-size')[0], {
+            min: 0,
+            step: 1,
+            shiftStep: 10,
+            altStep: 0.1
+        }).on('change', function(value, formatted) {
+            view.model.set({ fontSize: formatted });
             view.model.enable('fontSize');
         });
-        this.$('.change-line-height').on('input', function(event) {
-            view.model.set({ lineHeight: event.target.value.toString() });
+
+        Adjustable(this.$('.change-line-height')[0], {
+            min: 0,
+            step: 0.1,
+            shiftStep: 1,
+            altStep: 0.01
+        }).on('change', function(value, formatted) {
+            view.model.set({ lineHeight: formatted });
             view.model.enable('lineHeight');
         });
     },

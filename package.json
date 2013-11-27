@@ -16,9 +16,8 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jst": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-sass": "~0.5.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-sass": "~0.5.1",
     "grunt-contrib-watch": "~0.4.4"
   },
   "license": "MIT"

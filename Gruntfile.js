@@ -22,7 +22,8 @@ module.exports = function(grunt) {
                 'vendor/jquery-2.0.3.js',
                 'vendor/jquery.animate-colors.js',
                 'vendor/underscore.js',
-                'vendor/backbone.js'
+                'vendor/backbone.js',
+                'vendor/Adjustable.js'
             ],
             sass: ['sass/main.scss'],
             templates: ['src/Templates/*.tmpl']
@@ -54,11 +55,14 @@ module.exports = function(grunt) {
             dev: {
                 options: {
                     preserveComments: 'all',
+                    beautify: true,
                     mangle: false,
                     compress: false,
                     sourceMap: 'build/<%= filename %>.map',
                     sourceMapRoot: '../',
                     sourceMappingURL: 'WFP.map',
+                    banner: '(function(window, document, $, _, Backbone, undefined) {\n\n',
+                    footer: '\n})(window, document, jQuery.noConflict(true), _.noConflict(), Backbone.noConflict());',
                 },
                 files: {
                     'build/<%= filename %>.js': ['<%= paths.src %>'],
@@ -80,10 +84,8 @@ module.exports = function(grunt) {
                         ' * MIT License',
                         ' */',
                         '',
-                        '(function(window, document, $, _, Backbone, undefined) {',
-                        '\n'
                     ].join('\n'),
-                    footer: '\n})(window, document, jQuery.noConflict(true), _.noConflict(), Backbone.noConflict());'
+                    footer: ''
                 },
                 files: {
                     'build/<%= filename %>.full.min.js': ['<%= paths.vendor %>', 'build/<%= filename %>.js'],
@@ -112,7 +114,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-jst');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');

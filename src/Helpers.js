@@ -53,7 +53,7 @@ function startsWith(a, b) {
 // Variants arrays are used by the Google Font Developer API
 // See: https://developers.google.com/fonts/docs/developer_api#Example
 //
-//     hasItalic(['300', '300italic', 700])
+//     hasItalic(['300', '300italic', '700'])
 //     => true
 //        
 function hasItalic(variants) {
@@ -64,7 +64,7 @@ function hasItalic(variants) {
 
 // Given a variants array, it returns an array of weights available.
 //   
-//     getWeights(['300', '300italic', 700])
+//     getWeights(['300', '300italic', '700'])
 //     => ['300', '700']
 //       
 function getWeights(variants) {

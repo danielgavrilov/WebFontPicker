@@ -19,7 +19,6 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5),
                 0 1px 5px rgba(0, 0, 0, 0.15);
     z-index: 99999;
-    cursor: default;
 
     -webkit-transition: -webkit-transform 400ms $easing;
     -moz-transition: -moz-transform 400ms $easing;
@@ -563,7 +562,7 @@
 
         .color, .font-size, .line-height {
             width: 33%;
-            padding: 6px 10px 6px 25px;
+            padding: 6px 10px 7px 25px;
             float: left;
             width: 35%;
             position: relative;
@@ -573,7 +572,7 @@
             width: 30%;
         }
 
-        .color, .font-size {
+        .font-size, .line-height {
             border-right: 1px solid $separator-color;
         }
 
@@ -590,11 +589,14 @@
                 }
     }
 
-    .editable {
-        font-size: 13px;
-        color: #777;
-        outline: none;
-        width: 80px;
-        @include border-box;
+    .adjustable {
+        font-size: 15px;
+        color: #555;
+        border-bottom: 1px solid #ccc;
+        @include transition(border-color .15s linear);
+
+        &:hover, &.adjusting {
+            border-bottom: 2px solid $blue;
+        }
     }
 }
