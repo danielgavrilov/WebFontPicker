@@ -21,15 +21,10 @@ var StyleList = Backbone.Collection.extend({
         }
     },
 
-    // Returns the model that is selected.
-    selected: function() {
-        return this.findWhere({ selected: true });
-    },
-
     // Selects a model.
     select: function(model) {
         if (model.get('selected')) return;
-        var selected = this.selected();
+        var selected = this.findWhere({ selected: true });
         if (selected) selected.set('selected', false);
         model.set('selected', true);
     }
