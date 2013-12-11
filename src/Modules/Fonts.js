@@ -2,9 +2,11 @@ var Fonts = (function() {
 
     var deferred = $.Deferred(), // Resolved once the list of fonts is received from the Google Fonts API.
 
+        protocol = window.location.protocol === 'https:' ? 'https:' : 'http:',
+
         apiKey   = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU',
         listAPI  = 'https://www.googleapis.com/webfonts/v1/webfonts',
-        fontsAPI = '//fonts.googleapis.com/css?family=',
+        fontsAPI = protocol + '//fonts.googleapis.com/css?family=',
         letter   = /[a-zA-Z]/,
 
         list     = {}, // Object of <family name>:<fontObj> available.
