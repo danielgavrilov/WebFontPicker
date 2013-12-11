@@ -131,7 +131,7 @@
         float: right;
         border: none;
         margin: 4px 5px 0 0;
-        width: 30px;
+        width: 32px;
         height: 24px;
         border-radius: 3px;
         @include transition(all .1s linear);
@@ -584,7 +584,7 @@
                 cursor: pointer;
                 @include no-select;
             }
-                input[type=checkbox]:checked + label {
+                input[type=checkbox]:checked + span {
                     color: #444;
                 }
     }

@@ -4,7 +4,7 @@
     <div class="selector-wrapper child always-visible">
         <label class="toggle-wrapper">
             <input type="checkbox" class="toggle-active" <% if (obj.active) { %> checked <% } %>>
-            <label class="toggle"></label>
+            <span class="toggle"></span>
         </label>
         <button class="destroy">Delete</button>
         <input type="text" class="selector" placeholder="CSS selector (e.g. body, h1, p)" value="<%= obj.selector %>">
@@ -34,7 +34,7 @@
     <div class="weight child">
         <label>
             <input type="checkbox" class="toggle-weight"<% if (obj.weightEnabled) { %> checked <% } %>>
-            <label class="section-label">Weight</label>
+            <span class="section-label">Weight</span>
         </label>
         <span class="select-weight"></span>
     </div>
@@ -44,7 +44,7 @@
         <div class="font-size">
             <label>
                 <input type="checkbox" class="toggle-font-size"<% if (obj.fontSizeEnabled) { %> checked <% } %>>
-                <label>Font size</label>
+                <span>Font size</span>
             </label>
             <div>
                 <span class="adjustable change-font-size">16px</span>
@@ -53,7 +53,7 @@
         <div class="line-height">
             <label>
                 <input type="checkbox" id="line-height" class="toggle-line-height"<% if (obj.lineHeightEnabled) { %> checked <% } %>>
-                <label>Line height</label>
+                <span>Line height</span>
             </label>
             <div>
                 <span class="adjustable change-line-height">1.5</span>
@@ -62,7 +62,7 @@
         <div class="color">
             <label>
                 <input type="checkbox" class="toggle-color"<% if (obj.colorEnabled) { %> checked <% } %>>
-                <label>Color</label>
+                <span>Color</span>
             </label>
             <input type="color" class="change-color" spellcheck="false" value="#5bbf45">
         </div>
