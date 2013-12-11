@@ -88,7 +88,6 @@ var Style = Backbone.Model.extend({
     // Use the `enable`, `disable` and `toggle` methods to enable/disable properties.
     _setToggle: function(prop, value) {
         var changes = {};
-
         if (this.enabled[prop] !== value) {
             changes[prop] = this.enabled[prop] = value;
             this.trigger('toggle:' + prop, value);
