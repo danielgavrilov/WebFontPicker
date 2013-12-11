@@ -158,16 +158,25 @@ var StyleView = Backbone.View.extend({
         }).on('change', function(value, formatted) {
             view.model.set({ fontSize: formatted });
             view.model.enable('fontSize');
+        }).on('start', function() {
+            Picker.hideable = false;
+        }).on('end', function() {
+            Picker.hideable = true;
         });
 
         Adjustable(this.$('.change-line-height')[0], {
             min: 0,
             step: 0.1,
             shiftStep: 1,
-            altStep: 0.01
+            altStep: 0.01,
+            formatter: function(value) { return value.toFixed(2); }
         }).on('change', function(value, formatted) {
             view.model.set({ lineHeight: formatted });
             view.model.enable('lineHeight');
+        }).on('start', function() {
+            Picker.hideable = false;
+        }).on('end', function() {
+            Picker.hideable = true;
         });
     },
 
