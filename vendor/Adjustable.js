@@ -78,14 +78,14 @@
              * @param {string} input The formatted value
              * @return {number} The raw number value
              */
-            parseInput: function(input) {
+            inputParser: function(input) {
                 return +(input.match(reNumber)[0]);
             }
         };
 
         var _this = this;
 
-        options = extend({}, defaults, options);
+        this.options = options = extend({}, defaults, options);
         
         /**
          * Stores the current value.
@@ -120,10 +120,10 @@
         }
 
         /**
-         * Parses a value with the specified `parseInput` function.
+         * Parses a value with the specified `inputParser` function.
          */
         function parseInput(input) {
-            return options.parseInput.call(_this, input);
+            return options.inputParser.call(_this, input);
         }
 
         /**
@@ -191,6 +191,7 @@
         function mouseDown(event) {
 
             _this.adjusting = true;
+            _this.fire('start');
 
             lastX = event.clientX;
 
@@ -226,6 +227,7 @@
         function mouseUp(event) {
 
             _this.adjusting = false;
+            _this.fire('end');
 
             window.removeEventListener('mouseup', mouseUp, false);
             window.removeEventListener('mousemove', mouseMove, false);
@@ -304,30 +306,30 @@
     extend(Adjustable.prototype, {
 
         on: function(name, callback) {
-            this.listeners || (this.listeners = {});
-            if (!this.listeners[name]) this.listeners[name] = [];
-            if (this.listeners[name].indexOf(callback) === -1) {
-                this.listeners[name].push(callback);
+            this._listeners || (this._listeners = {});
+            this._listeners[name] || (this._listeners[name] = []);
+            if (this._listeners[name].indexOf(callback) === -1) {
+                this._listeners[name].push(callback);
             }
             return this;
         },
 
         off: function(name, callback) {
             if (!name) { 
-                this.listeners = {}; 
+                this._listeners = {}; 
             } else if (!callback) { 
-                delete this.listeners[name];
+                delete this._listeners[name];
             } else {
-                var index = this.listeners.indexOf(callback);
+                var index = this._listeners[name].indexOf(callback);
                 if (index > -1) {
-                    this.listeners.splice(index, 1);
+                    this._listeners[name].splice(index, 1);
                 }
             }
             return this;
         },
 
         fire: function(name /*, arguments... */) {
-            var events = this.listeners && this.listeners[name];
+            var events = this._listeners && this._listeners[name];
             var args = slice.call(arguments, 1);
             if (events && events.length) {
                 for (var i = 0, len = events.length; i < len; i++) {
