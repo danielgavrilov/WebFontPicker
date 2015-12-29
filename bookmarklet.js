@@ -2,7 +2,7 @@ javascript:(function(){
 
     var WFP = window.WFP = window.WFP || {};
 
-    WFP.bookmarklet = 1;
+    WFP.bookmarklet = 2;
 
     WFP.Picker && WFP.Picker.show();
 
@@ -23,9 +23,9 @@ javascript:(function(){
         document.head.appendChild(script);
     }
 
-    loadStylesheet('http://gavrilov.co.uk/wfp/WFP.css');
-    loadScript('http://gavrilov.co.uk/wfp/WFP.full.min.js');
    
+    loadStylesheet('//gavrilov.co.uk/wfp/WFP.css');
+    loadScript('//gavrilov.co.uk/wfp/WFP.full.min.js');
     WFP.attached = true;
 
 })();
