@@ -4,7 +4,7 @@ var Fonts = (function() {
 
         protocol = window.location.protocol === 'https:' ? 'https:' : 'http:',
 
-        apiKey   = 'AIzaSyAqsRNfr7thcUSRbazqmLYlm1eBGaFzTwU',
+        apiKey   = 'AIzaSyAiarVBOlH5jvLpBNHUN-WSIbkkxrWB7zM',
         listAPI  = 'https://www.googleapis.com/webfonts/v1/webfonts',
         fontsAPI = protocol + '//fonts.googleapis.com/css?family=',
         letter   = /[a-zA-Z]/,
